@@ -1,10 +1,12 @@
 package com.carRental.domain;
 
-import com.sun.istack.internal.NotNull;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import com.sun.istack.NotNull;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -19,7 +21,6 @@ public class User {
 
     @Id
     @GeneratedValue
-    @NotNull
     @Column(name = "ID", unique = true)
     private Long id;
 
