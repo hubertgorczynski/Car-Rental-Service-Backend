@@ -20,8 +20,7 @@ public class CarMapper {
                 carDto.getEngineCapacity(),
                 carDto.getBodyClass(),
                 carDto.getMileage(),
-                carDto.getCostPerDay(),
-                carDto.getStatus());
+                carDto.getCostPerDay());
     }
 
     public CarDto mapToCarDto(final Car car) {

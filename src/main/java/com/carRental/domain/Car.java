@@ -54,12 +54,12 @@ public class Car {
     @Column(name = "COST_PER_DAY")
     private double costPerDay;
 
-    @NotNull
+    @Enumerated
     @Column(name = "STATUS")
     private Status status;
 
     public Car(String vin, String brand, String model, int productionYear, String fuelType, double engineCapacity,
-               String bodyClass, int mileage, double costPerDay, Status status) {
+               String bodyClass, int mileage, double costPerDay) {
         this.vin = vin;
         this.brand = brand;
         this.model = model;
@@ -69,6 +69,6 @@ public class Car {
         this.bodyClass = bodyClass;
         this.mileage = mileage;
         this.costPerDay = costPerDay;
-        this.status = status;
+        this.status = Status.AVAILABLE;
     }
 }
