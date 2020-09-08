@@ -1,0 +1,22 @@
+package com.carRental.domain.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.time.LocalDate;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+public class RentalDto {
+    private Long id;
+    private LocalDate rentedFrom;
+    private LocalDate rentedTo;
+    private Long duration;
+    private double cost;
+    private String carModel;
+    private Long userId;
+}
