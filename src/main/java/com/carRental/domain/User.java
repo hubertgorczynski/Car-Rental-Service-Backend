@@ -53,7 +53,7 @@ public class User {
             cascade = CascadeType.ALL,
             fetch = FetchType.EAGER,
             mappedBy = "user")
-    private List<Rental> Rentals = new ArrayList<>();
+    private List<Rental> rentals = new ArrayList<>();
 
     public User(String name, String lastName, String email, String password, int phoneNumber) {
         this.name = name;

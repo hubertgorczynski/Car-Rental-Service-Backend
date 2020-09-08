@@ -64,7 +64,7 @@ public class Car {
             cascade = CascadeType.ALL,
             fetch = FetchType.EAGER,
             mappedBy = "car")
-    private List<Rental> Rentals = new ArrayList<>();
+    private List<Rental> rentals = new ArrayList<>();
 
     public Car(String vin, String brand, String model, int productionYear, String fuelType, double engineCapacity,
                String bodyClass, int mileage, double costPerDay) {
