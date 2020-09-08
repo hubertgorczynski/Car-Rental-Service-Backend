@@ -4,6 +4,8 @@ import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -57,6 +59,12 @@ public class Car {
     @Enumerated
     @Column(name = "STATUS")
     private Status status;
+
+    @OneToMany(targetEntity = Rental.class,
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER,
+            mappedBy = "car")
+    private List<Rental> Rentals = new ArrayList<>();
 
     public Car(String vin, String brand, String model, int productionYear, String fuelType, double engineCapacity,
                String bodyClass, int mileage, double costPerDay) {

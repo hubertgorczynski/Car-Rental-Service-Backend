@@ -9,7 +9,9 @@ import lombok.Setter;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -46,6 +48,12 @@ public class User {
 
     @Column(name = "ACCOUNT_CREATED")
     private Date accountCreated;
+
+    @OneToMany(targetEntity = Rental.class,
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER,
+            mappedBy = "user")
+    private List<Rental> Rentals = new ArrayList<>();
 
     public User(String name, String lastName, String email, String password, int phoneNumber) {
         this.name = name;
