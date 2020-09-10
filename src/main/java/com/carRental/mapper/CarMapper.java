@@ -25,6 +25,7 @@ public class CarMapper {
 
     public CarDto mapToCarDto(final Car car) {
         return new CarDto(
+                car.getId(),
                 car.getVin(),
                 car.getBrand(),
                 car.getModel(),
@@ -40,6 +41,7 @@ public class CarMapper {
     public List<CarDto> mapToCarDtoList(final List<Car> carList) {
         return carList.stream()
                 .map(car -> new CarDto(
+                        car.getId(),
                         car.getVin(),
                         car.getBrand(),
                         car.getModel(),

@@ -1,6 +1,5 @@
 package com.carRental.domain;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,8 +8,8 @@ import lombok.Setter;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -47,7 +46,7 @@ public class User {
     private int phoneNumber;
 
     @Column(name = "ACCOUNT_CREATED")
-    private Date accountCreated;
+    private LocalDate accountCreated;
 
     @OneToMany(targetEntity = Rental.class,
             cascade = CascadeType.ALL,

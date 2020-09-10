@@ -4,6 +4,7 @@ import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,7 +55,7 @@ public class Car {
 
     @NotNull
     @Column(name = "COST_PER_DAY")
-    private double costPerDay;
+    private BigDecimal costPerDay;
 
     @Enumerated
     @Column(name = "STATUS")
@@ -67,7 +68,7 @@ public class Car {
     private List<Rental> rentals = new ArrayList<>();
 
     public Car(String vin, String brand, String model, int productionYear, String fuelType, double engineCapacity,
-               String bodyClass, int mileage, double costPerDay) {
+               String bodyClass, int mileage, BigDecimal costPerDay) {
         this.vin = vin;
         this.brand = brand;
         this.model = model;

@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import static java.time.temporal.ChronoUnit.DAYS;
@@ -34,11 +35,11 @@ public class Rental {
 
     @NotNull
     @Column(name = "DURATION")
-    private long duration;
+    private Long duration;
 
     @NotNull
     @Column(name = "COST")
-    private double cost;
+    private BigDecimal cost;
 
     @NotNull
     @ManyToOne(cascade = CascadeType.ALL)
@@ -56,7 +57,7 @@ public class Rental {
         this.user = user;
         this.car = car;
         this.duration = DAYS.between(rentedFrom, rentedTo);
-        this.cost = duration * car.getCostPerDay();
+        this.cost = car.getCostPerDay().multiply(new BigDecimal(duration));
     }
 }
 
