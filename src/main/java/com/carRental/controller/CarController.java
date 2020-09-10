@@ -6,6 +6,7 @@ import com.carRental.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
@@ -16,19 +17,39 @@ public class CarController {
     @Autowired
     private CarService carService;
 
-    @GetMapping(value = "/{id}")
+    @GetMapping("/{id}")
     public CarDto getCarById(@PathVariable Long id) throws CarNotFoundException {
         return carService.getCarById(id);
     }
 
-    @GetMapping
-    public List<CarDto> getAllCars() {
-        return carService.getCars();
+    @GetMapping("/{vin}")
+    public CarDto getCarByVin(@PathVariable String vin) throws CarNotFoundException {
+        return carService.getCarByVin(vin);
     }
 
-    @GetMapping(value = "/ByBrand/{brand}")
-    public List<CarDto> getCarsByBrand(@PathVariable String brand) {
-        return carService.getCarsByBrand(brand);
+    @GetMapping
+    public List<CarDto> getAllCars(@RequestParam(required = false) String brand,
+                                   @RequestParam(required = false) String fuelType,
+                                   @RequestParam(required = false) String bodyClass) {
+        if (brand != null && !brand.isEmpty()) {
+            return carService.getCarsByBrand(brand);
+        } else if (fuelType != null && !fuelType.isEmpty()) {
+            return carService.getCarsByFuelType(fuelType);
+        } else if (bodyClass != null && !bodyClass.isEmpty()) {
+            return carService.getCarsByBodyClass(bodyClass);
+        } else {
+            return carService.getCars();
+        }
+    }
+
+    @GetMapping("/by_mileage_less_then/{distance}")
+    public List<CarDto> getAllCarsByMileageLessThen(@PathVariable int distance) {
+        return carService.getCarsByMileageLessThen(distance);
+    }
+
+    @GetMapping("/by_cost_per_day_less_then/{cost}")
+    public List<CarDto> getAllCarsByCostPerDayLessThan(@PathVariable BigDecimal cost) {
+        return carService.getCarsByCostPerDayLessThan(cost);
     }
 
     @PostMapping
@@ -41,7 +62,7 @@ public class CarController {
         carService.saveCar(carDto);
     }
 
-    @DeleteMapping(value = "/{id}")
+    @DeleteMapping("/{id}")
     public void deleteCar(@PathVariable Long id) {
         carService.deleteCar(id);
     }

@@ -21,14 +21,19 @@ public class UserController {
         return userService.getUserById(id);
     }
 
+    @GetMapping("/by_email/{email}")
+    public UserDto getUserByEmail(@PathVariable String email) throws UserNotFoundException {
+        return userService.getUserByEmail(email);
+    }
+
+    @GetMapping("/by_phone/{number}")
+    public UserDto getUserByEmail(@PathVariable int number) throws UserNotFoundException {
+        return userService.getUserByPhoneNumber(number);
+    }
+
     @GetMapping
     public List<UserDto> getAllUsers() {
         return userService.getAllUsers();
-    }
-
-    @GetMapping(value = "/ByEmail/{email}")
-    public UserDto getUserByEmail(@PathVariable String email) throws UserNotFoundException {
-        return userService.getUserByEmail(email);
     }
 
     @PostMapping
@@ -41,7 +46,7 @@ public class UserController {
         userService.saveUser(userDto);
     }
 
-    @DeleteMapping(value = "/{id}")
+    @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
     }

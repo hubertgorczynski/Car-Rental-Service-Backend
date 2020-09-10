@@ -8,6 +8,7 @@ import com.carRental.repository.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -42,10 +43,6 @@ public class CarService {
         return carMapper.mapToCarDtoList(carRepository.findAllByBrand(brand));
     }
 
-    public List<CarDto> getCarsByProductionYear(int year) {
-        return carMapper.mapToCarDtoList(carRepository.findAllByProductionYear(year));
-    }
-
     public List<CarDto> getCarsByFuelType(String fuelType) {
         return carMapper.mapToCarDtoList(carRepository.findAllByFuelType(fuelType));
     }
@@ -58,7 +55,7 @@ public class CarService {
         return carMapper.mapToCarDtoList(carRepository.findAllByMileageLessThan(distance));
     }
 
-    public List<CarDto> getCarsByCostPerDayLessThan(double cost) {
+    public List<CarDto> getCarsByCostPerDayLessThan(BigDecimal cost) {
         return carMapper.mapToCarDtoList(carRepository.findAllByCostPerDayLessThan(cost));
     }
 
