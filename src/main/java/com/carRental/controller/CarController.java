@@ -10,34 +10,39 @@ import java.util.List;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/v1")
+@RequestMapping("/v1/cars")
 public class CarController {
 
     @Autowired
     private CarService carService;
 
-    @GetMapping(value = "/car")
-    public CarDto getCarById(@RequestParam Long id) throws CarNotFoundException {
+    @GetMapping(value = "/{id}")
+    public CarDto getCarById(@PathVariable Long id) throws CarNotFoundException {
         return carService.getCarById(id);
     }
 
-    @GetMapping(value = "/cars")
+    @GetMapping
     public List<CarDto> getAllCars() {
         return carService.getCars();
     }
 
-    @GetMapping(value = "/carsByBrand")
-    public List<CarDto> getCarsByBrand(@RequestParam String brand) {
+    @GetMapping(value = "/ByBrand/{brand}")
+    public List<CarDto> getCarsByBrand(@PathVariable String brand) {
         return carService.getCarsByBrand(brand);
     }
 
-    @PostMapping(value = "/car")
+    @PostMapping
     public void createCar(@RequestBody CarDto carDto) {
         carService.saveCar(carDto);
     }
 
-    @DeleteMapping(value = "/car")
-    public void deleteCar(@RequestParam Long id) {
+    @PutMapping
+    public void modifyCar(@RequestBody CarDto carDto) {
+        carService.saveCar(carDto);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public void deleteCar(@PathVariable Long id) {
         carService.deleteCar(id);
     }
 }

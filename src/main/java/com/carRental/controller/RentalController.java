@@ -13,31 +13,31 @@ import java.util.List;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/v1")
+@RequestMapping("/v1/rentals")
 public class RentalController {
 
     @Autowired
     private RentalService rentalService;
 
-    @PostMapping(value = "/rental")
-    public void createRental(@RequestParam LocalDate rentedFrom, @RequestParam LocalDate rentedTo,
-                             @RequestParam Long userId, @RequestParam Long carId)
+    @PostMapping(value = "/{rentedFrom}/{rentedTo}/{userId}/{carId}")
+    public void createRental(@PathVariable LocalDate rentedFrom, @PathVariable LocalDate rentedTo,
+                             @PathVariable Long userId, @PathVariable Long carId)
             throws CarNotFoundException, UserNotFoundException {
         rentalService.createRental(rentedFrom, rentedTo, userId, carId);
     }
 
-    @GetMapping(value = "rental")
-    public RentalDto getRentalById(@RequestParam Long id) throws RentalNotFoundException {
+    @GetMapping(value = "/{id}")
+    public RentalDto getRentalById(@PathVariable Long id) throws RentalNotFoundException {
         return rentalService.getRentalById(id);
     }
 
-    @GetMapping(value = "/rentals")
+    @GetMapping
     public List<RentalDto> getAllRentals() {
         return rentalService.getRentals();
     }
 
-    @DeleteMapping(value = "/rental")
-    public void closeRental(@RequestParam Long id) throws RentalNotFoundException {
+    @DeleteMapping(value = "/{id}")
+    public void closeRental(@PathVariable Long id) throws RentalNotFoundException {
         rentalService.closeRental(id);
     }
 }
