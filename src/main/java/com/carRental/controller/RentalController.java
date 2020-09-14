@@ -8,7 +8,6 @@ import com.carRental.service.RentalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
@@ -16,14 +15,11 @@ import java.util.List;
 @RequestMapping("/v1/rentals")
 public class RentalController {
 
-    @Autowired
-    private RentalService rentalService;
+    private final RentalService rentalService;
 
-    @PostMapping
-    public void createRental(@RequestBody LocalDate rentedFrom, @RequestBody LocalDate rentedTo,
-                             @RequestBody Long userId, @RequestBody Long carId)
-            throws CarNotFoundException, UserNotFoundException {
-        rentalService.createRental(rentedFrom, rentedTo, userId, carId);
+    @Autowired
+    public RentalController(RentalService rentalService) {
+        this.rentalService = rentalService;
     }
 
     @GetMapping(value = "/{id}")
@@ -34,6 +30,16 @@ public class RentalController {
     @GetMapping
     public List<RentalDto> getAllRentals() {
         return rentalService.getRentals();
+    }
+
+    @PostMapping
+    public RentalDto createRental(@RequestBody RentalDto rentalDto) throws CarNotFoundException, UserNotFoundException {
+        return rentalService.createRental(rentalDto);
+    }
+
+    @PutMapping
+    public RentalDto modifyRental(@RequestBody RentalDto rentalDto) throws CarNotFoundException, UserNotFoundException {
+        return rentalService.createRental(rentalDto);
     }
 
     @DeleteMapping(value = "/{id}")

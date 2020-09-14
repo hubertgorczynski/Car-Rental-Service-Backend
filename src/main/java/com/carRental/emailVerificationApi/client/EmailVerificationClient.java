@@ -15,11 +15,14 @@ import java.net.URI;
 @Component
 public class EmailVerificationClient {
 
-    @Autowired
-    private RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
+    private final EmailVerificationConfig emailVerificationConfig;
 
     @Autowired
-    private EmailVerificationConfig emailVerificationConfig;
+    public EmailVerificationClient(RestTemplate restTemplate, EmailVerificationConfig emailVerificationConfig) {
+        this.restTemplate = restTemplate;
+        this.emailVerificationConfig = emailVerificationConfig;
+    }
 
     public EmailVerificationDto verifyEmail(String email) {
         URI url = getEmailVerificationUri(email);

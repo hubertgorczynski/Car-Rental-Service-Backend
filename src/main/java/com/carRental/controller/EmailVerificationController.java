@@ -10,12 +10,15 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/v1/verification")
 public class EmailVerificationController {
 
+    private final EmailVerificationService emailVerificationService;
+
     @Autowired
-    private EmailVerificationService emailVerificationService;
+    public EmailVerificationController(EmailVerificationService emailVerificationService) {
+        this.emailVerificationService = emailVerificationService;
+    }
 
     @GetMapping(value = "/{email}")
     public EmailVerificationDto verifyEmail(@PathVariable String email) {
         return emailVerificationService.isEmailValid(email);
     }
 }
-

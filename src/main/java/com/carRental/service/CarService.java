@@ -1,6 +1,5 @@
 package com.carRental.service;
 
-import com.carRental.domain.Car;
 import com.carRental.domain.dto.CarDto;
 import com.carRental.exceptions.CarNotFoundException;
 import com.carRental.mapper.CarMapper;
@@ -25,15 +24,15 @@ public class CarService {
         this.carMapper = carMapper;
     }
 
-    public Car saveCar(final CarDto carDto) {
-        return carRepository.save(carMapper.mapToCar(carDto));
+    public CarDto saveCar(final CarDto carDto) {
+        return carMapper.mapToCarDto(carRepository.save(carMapper.mapToCar(carDto)));
     }
 
-    public CarDto getCarById(Long id) throws CarNotFoundException {
+    public CarDto getCarById(final Long id) throws CarNotFoundException {
         return carMapper.mapToCarDto(carRepository.findById(id).orElseThrow(CarNotFoundException::new));
     }
 
-    public CarDto getCarByVin(String vin) throws CarNotFoundException {
+    public CarDto getCarByVin(final String vin) throws CarNotFoundException {
         return carMapper.mapToCarDto(carRepository.findByVin(vin).orElseThrow(CarNotFoundException::new));
     }
 
@@ -41,27 +40,27 @@ public class CarService {
         return carMapper.mapToCarDtoList(carRepository.findAll());
     }
 
-    public List<CarDto> getCarsByBrand(String brand) {
+    public List<CarDto> getCarsByBrand(final String brand) {
         return carMapper.mapToCarDtoList(carRepository.findAllByBrand(brand));
     }
 
-    public List<CarDto> getCarsByFuelType(String fuelType) {
+    public List<CarDto> getCarsByFuelType(final String fuelType) {
         return carMapper.mapToCarDtoList(carRepository.findAllByFuelType(fuelType));
     }
 
-    public List<CarDto> getCarsByBodyClass(String bodyClass) {
+    public List<CarDto> getCarsByBodyClass(final String bodyClass) {
         return carMapper.mapToCarDtoList(carRepository.findAllByBodyClass(bodyClass));
     }
 
-    public List<CarDto> getCarsByMileageLessThen(int distance) {
+    public List<CarDto> getCarsByMileageLessThen(final int distance) {
         return carMapper.mapToCarDtoList(carRepository.findAllByMileageLessThan(distance));
     }
 
-    public List<CarDto> getCarsByCostPerDayLessThan(BigDecimal cost) {
+    public List<CarDto> getCarsByCostPerDayLessThan(final BigDecimal cost) {
         return carMapper.mapToCarDtoList(carRepository.findAllByCostPerDayLessThan(cost));
     }
 
-    public void deleteCar(Long id) {
+    public void deleteCar(final Long id) {
         carRepository.deleteById(id);
     }
 }

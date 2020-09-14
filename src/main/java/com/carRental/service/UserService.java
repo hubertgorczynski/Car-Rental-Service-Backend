@@ -1,6 +1,5 @@
 package com.carRental.service;
 
-import com.carRental.domain.User;
 import com.carRental.domain.dto.UserDto;
 import com.carRental.exceptions.UserNotFoundException;
 import com.carRental.mapper.UserMapper;
@@ -24,19 +23,19 @@ public class UserService {
         this.userMapper = userMapper;
     }
 
-    public User saveUser(final UserDto userDto) {
-        return userRepository.save(userMapper.mapToUser(userDto));
+    public UserDto saveUser(final UserDto userDto) {
+        return userMapper.mapToUserDto(userRepository.save(userMapper.mapToUser(userDto)));
     }
 
-    public UserDto getUserById(Long id) throws UserNotFoundException {
+    public UserDto getUserById(final Long id) throws UserNotFoundException {
         return userMapper.mapToUserDto(userRepository.findById(id).orElseThrow(UserNotFoundException::new));
     }
 
-    public UserDto getUserByEmail(String email) throws UserNotFoundException {
+    public UserDto getUserByEmail(final String email) throws UserNotFoundException {
         return userMapper.mapToUserDto(userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new));
     }
 
-    public UserDto getUserByPhoneNumber(int phoneNumber) throws UserNotFoundException {
+    public UserDto getUserByPhoneNumber(final int phoneNumber) throws UserNotFoundException {
         return userMapper.mapToUserDto(userRepository.findByPhoneNumber(phoneNumber).orElseThrow(UserNotFoundException::new));
     }
 
@@ -44,7 +43,7 @@ public class UserService {
         return userMapper.mapToUserDtoList(userRepository.findAll());
     }
 
-    public void deleteUser(Long id) {
+    public void deleteUser(final Long id) {
         userRepository.deleteById(id);
     }
 }

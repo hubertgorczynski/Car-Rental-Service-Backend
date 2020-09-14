@@ -13,8 +13,12 @@ import java.util.List;
 @RequestMapping("/v1/users")
 public class UserController {
 
+    private final UserService userService;
+
     @Autowired
-    private UserService userService;
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping(value = "/{id}")
     public UserDto getUserById(@PathVariable Long id) throws UserNotFoundException {
@@ -27,7 +31,7 @@ public class UserController {
     }
 
     @GetMapping("/by_phone/{number}")
-    public UserDto getUserByEmail(@PathVariable int number) throws UserNotFoundException {
+    public UserDto getUserByPhoneNumber(@PathVariable int number) throws UserNotFoundException {
         return userService.getUserByPhoneNumber(number);
     }
 
@@ -37,13 +41,13 @@ public class UserController {
     }
 
     @PostMapping
-    public void createUser(@RequestBody UserDto userDto) {
-        userService.saveUser(userDto);
+    public UserDto createUser(@RequestBody UserDto userDto) {
+        return userService.saveUser(userDto);
     }
 
     @PutMapping
-    public void modifyUser(@RequestBody UserDto userDto) {
-        userService.saveUser(userDto);
+    public UserDto modifyUser(@RequestBody UserDto userDto) {
+        return userService.saveUser(userDto);
     }
 
     @DeleteMapping("/{id}")

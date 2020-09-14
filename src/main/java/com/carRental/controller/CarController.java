@@ -14,8 +14,12 @@ import java.util.List;
 @RequestMapping("/v1/cars")
 public class CarController {
 
+    private final CarService carService;
+
     @Autowired
-    private CarService carService;
+    public CarController(CarService carService) {
+        this.carService = carService;
+    }
 
     @GetMapping("/{id}")
     public CarDto getCarById(@PathVariable Long id) throws CarNotFoundException {
@@ -53,13 +57,13 @@ public class CarController {
     }
 
     @PostMapping
-    public void createCar(@RequestBody CarDto carDto) {
-        carService.saveCar(carDto);
+    public CarDto createCar(@RequestBody CarDto carDto) {
+        return carService.saveCar(carDto);
     }
 
     @PutMapping
-    public void modifyCar(@RequestBody CarDto carDto) {
-        carService.saveCar(carDto);
+    public CarDto modifyCar(@RequestBody CarDto carDto) {
+        return carService.saveCar(carDto);
     }
 
     @DeleteMapping("/{id}")

@@ -11,7 +11,7 @@ public class EmailVerificationService {
     @Autowired
     private EmailVerificationClient emailVerificationClient;
 
-    public EmailVerificationDto isEmailValid(String email) {
+    public EmailVerificationDto isEmailValid(final String email) {
         return emailVerificationClient.verifyEmail(email);
     }
 }
