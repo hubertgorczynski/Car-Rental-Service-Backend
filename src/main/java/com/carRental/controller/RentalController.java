@@ -19,9 +19,9 @@ public class RentalController {
     @Autowired
     private RentalService rentalService;
 
-    @PostMapping(value = "/{rentedFrom}/{rentedTo}/{userId}/{carId}")
-    public void createRental(@PathVariable LocalDate rentedFrom, @PathVariable LocalDate rentedTo,
-                             @PathVariable Long userId, @PathVariable Long carId)
+    @PostMapping
+    public void createRental(@RequestBody LocalDate rentedFrom, @RequestBody LocalDate rentedTo,
+                             @RequestBody Long userId, @RequestBody Long carId)
             throws CarNotFoundException, UserNotFoundException {
         rentalService.createRental(rentedFrom, rentedTo, userId, carId);
     }

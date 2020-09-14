@@ -46,7 +46,7 @@ public class RentalService {
         carRepository.save(car);
 
         Rental rental = new Rental(rentedFrom, rentedTo, user, car);
-        return rentalRepository.save(rental);
+        return  rentalRepository.save(rental);
     }
 
     public RentalDto getRentalById(Long id) throws RentalNotFoundException {
