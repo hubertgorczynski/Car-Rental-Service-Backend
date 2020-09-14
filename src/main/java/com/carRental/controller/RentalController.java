@@ -1,6 +1,7 @@
 package com.carRental.controller;
 
 import com.carRental.domain.dto.RentalDto;
+import com.carRental.domain.dto.RentalExtensionDto;
 import com.carRental.exceptions.CarNotFoundException;
 import com.carRental.exceptions.RentalNotFoundException;
 import com.carRental.exceptions.UserNotFoundException;
@@ -38,8 +39,9 @@ public class RentalController {
     }
 
     @PutMapping
-    public RentalDto modifyRental(@RequestBody RentalDto rentalDto) throws CarNotFoundException, UserNotFoundException {
-        return rentalService.createRental(rentalDto);
+    public RentalDto extendRental(@RequestBody RentalExtensionDto rentalExtensionDto) throws CarNotFoundException,
+            UserNotFoundException, RentalNotFoundException {
+        return rentalService.extendRental(rentalExtensionDto);
     }
 
     @DeleteMapping("/{id}")
