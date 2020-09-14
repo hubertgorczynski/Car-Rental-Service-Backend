@@ -17,7 +17,7 @@ public class EmailVerificationController {
         this.emailVerificationService = emailVerificationService;
     }
 
-    @GetMapping(value = "/{email}")
+    @GetMapping("/{email}")
     public EmailVerificationDto verifyEmail(@PathVariable String email) {
         return emailVerificationService.isEmailValid(email);
     }

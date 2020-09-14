@@ -20,7 +20,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping(value = "/{id}")
+    @GetMapping("/{id}")
     public UserDto getUserById(@PathVariable Long id) throws UserNotFoundException {
         return userService.getUserById(id);
     }

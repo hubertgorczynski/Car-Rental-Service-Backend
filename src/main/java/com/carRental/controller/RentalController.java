@@ -22,7 +22,7 @@ public class RentalController {
         this.rentalService = rentalService;
     }
 
-    @GetMapping(value = "/{id}")
+    @GetMapping("/{id}")
     public RentalDto getRentalById(@PathVariable Long id) throws RentalNotFoundException {
         return rentalService.getRentalById(id);
     }
@@ -42,7 +42,7 @@ public class RentalController {
         return rentalService.createRental(rentalDto);
     }
 
-    @DeleteMapping(value = "/{id}")
+    @DeleteMapping("/{id}")
     public void closeRental(@PathVariable Long id) throws RentalNotFoundException {
         rentalService.closeRental(id);
     }

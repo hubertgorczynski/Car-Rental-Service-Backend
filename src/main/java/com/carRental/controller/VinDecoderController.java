@@ -17,7 +17,7 @@ public class VinDecoderController {
         this.vinDecoderService = vinDecoderService;
     }
 
-    @GetMapping(value = "/{vin}")
+    @GetMapping("/{vin}")
     public VinDecodedDto decodeVinNumber(@PathVariable String vin) {
         return vinDecoderService.decode(vin);
     }
