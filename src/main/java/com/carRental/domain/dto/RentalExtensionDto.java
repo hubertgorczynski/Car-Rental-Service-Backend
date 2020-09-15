@@ -12,6 +12,4 @@ import lombok.Setter;
 public class RentalExtensionDto {
     private Long rentalId;
     private Long extension;
-    private Long carId;
-    private Long userId;
 }

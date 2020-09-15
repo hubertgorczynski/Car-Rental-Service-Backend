@@ -13,7 +13,6 @@ import com.carRental.mapper.RentalMapper;
 import com.carRental.repository.CarRepository;
 import com.carRental.repository.RentalRepository;
 import com.carRental.repository.UserRepository;
-import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -63,18 +62,16 @@ public class RentalService {
         return rentalMapper.mapToRentalDto(rentalRepository.save(rental));
     }
 
-    public RentalDto extendRental(final RentalExtensionDto rentalExtensionDto) throws RentalNotFoundException, CarNotFoundException, UserNotFoundException {
+    public RentalDto extendRental(final RentalExtensionDto rentalExtensionDto) throws RentalNotFoundException {
         Rental rental = rentalRepository.findById(rentalExtensionDto.getRentalId()).orElseThrow(RentalNotFoundException::new);
-        User user = userRepository.findById(rentalExtensionDto.getUserId()).orElseThrow(UserNotFoundException::new);
-        Car car = carRepository.findById(rentalExtensionDto.getCarId()).orElseThrow(CarNotFoundException::new);
 
         LocalDate updateReturnDate = rental.getRentedTo().plusDays(rentalExtensionDto.getExtension());
 
         Rental updatedRental = new Rental(
                 rental.getRentedFrom(),
                 updateReturnDate,
-                user,
-                car);
+                rental.getUser(),
+                rental.getCar());
 
         return rentalMapper.mapToRentalDto(rentalRepository.save(updatedRental));
     }
