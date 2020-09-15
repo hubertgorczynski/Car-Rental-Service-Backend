@@ -27,8 +27,7 @@ public class VinDecoderClient {
     }
 
     private URI getVinDecoderUri(String vin) {
-        return UriComponentsBuilder.fromHttpUrl(vinDecoderConfig.getVinDecoderEndpoint())
-                .queryParam("", vin)
+        return UriComponentsBuilder.fromHttpUrl(vinDecoderConfig.getVinDecoderEndpoint() + "/" + vin)
                 .queryParam("format", "json")
                 .build().encode().toUri();
     }

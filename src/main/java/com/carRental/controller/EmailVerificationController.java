@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/v1/verification")
+@RequestMapping("/v1/email_verification")
 public class EmailVerificationController {
 
     private final EmailVerificationService emailVerificationService;
