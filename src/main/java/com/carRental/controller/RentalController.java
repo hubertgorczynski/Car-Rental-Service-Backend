@@ -39,6 +39,11 @@ public class RentalController {
     }
 
     @PutMapping
+    public RentalDto modifyRental(@RequestBody RentalDto rentalDto) throws CarNotFoundException, UserNotFoundException {
+        return rentalService.createRental(rentalDto);
+    }
+
+    @PutMapping("/extend_rental")
     public RentalDto extendRental(@RequestBody RentalExtensionDto rentalExtensionDto) throws RentalNotFoundException {
         return rentalService.extendRental(rentalExtensionDto);
     }
