@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -14,24 +16,6 @@ import lombok.Setter;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class VinDecodedDto {
 
-    @JsonProperty("Manufacturer")
-    private String Make;
-
-    @JsonProperty("Model")
-    private String Model;
-
-    @JsonProperty("Production Year")
-    private String ModelYear;
-
-    @JsonProperty("Fuel Type")
-    private String FuelTypePrimary;
-
-    @JsonProperty("Body Class")
-    private String BodyClass;
-
-    @JsonProperty("Vehicle Type")
-    private String VehicleType;
-
-    @JsonProperty("Plant Country")
-    private String PlantCountry;
+    @JsonProperty("Results")
+    private List<VinResultsDto> resultsDtoList;
 }
