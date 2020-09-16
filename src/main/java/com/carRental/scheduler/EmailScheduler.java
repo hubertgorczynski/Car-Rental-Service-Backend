@@ -31,8 +31,8 @@ public class EmailScheduler {
         this.rentalRepository = rentalRepository;
     }
 
-    @Scheduled(cron = "*/30 * * * * *")
-    //@Scheduled(cron = "0 0 6 * * *")
+    //@Scheduled(cron = "*/30 * * * * *") - testing
+    @Scheduled(cron = "0 0 6 * * *")
     public void sendDailyEmail() {
         long userRepositorySize = userRepository.count();
         long carRentedSize = carRepository.countAllByStatus(Status.RENTED);
@@ -47,7 +47,7 @@ public class EmailScheduler {
                         "\n Current number of registered users: " + userRepositorySize +
                         "\n Current number of rented cars: " + carRentedSize +
                         "\n Current number of available cars: " + carAvailableSize +
-                        "\n Current number of available cars: " + rentalRepositorySize +
+                        "\n Current number of all rentals: " + rentalRepositorySize +
                         "\n\t Have a nice day!"
         ));
     }
