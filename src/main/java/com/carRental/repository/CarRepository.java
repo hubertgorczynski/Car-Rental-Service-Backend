@@ -1,6 +1,7 @@
 package com.carRental.repository;
 
 import com.carRental.domain.Car;
+import com.carRental.domain.Status;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -37,5 +38,7 @@ public interface CarRepository extends CrudRepository<Car, Long> {
 
     @Override
     long count();
+
+    long countAllByStatus(Status status);
 }
 
