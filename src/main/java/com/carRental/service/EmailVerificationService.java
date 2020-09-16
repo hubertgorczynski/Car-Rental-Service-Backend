@@ -8,8 +8,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class EmailVerificationService {
 
+    private final EmailVerificationClient emailVerificationClient;
+
     @Autowired
-    private EmailVerificationClient emailVerificationClient;
+    public EmailVerificationService(EmailVerificationClient emailVerificationClient) {
+        this.emailVerificationClient = emailVerificationClient;
+    }
 
     public EmailVerificationDto isEmailValid(final String email) {
         return emailVerificationClient.verifyEmail(email);

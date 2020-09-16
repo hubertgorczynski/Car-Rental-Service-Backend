@@ -1,8 +1,7 @@
 package com.carRental.service;
 
-import com.carRental.domain.dto.UserDto;
+import com.carRental.domain.User;
 import com.carRental.exceptions.UserNotFoundException;
-import com.carRental.mapper.UserMapper;
 import com.carRental.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,35 +14,33 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final UserMapper userMapper;
 
     @Autowired
-    public UserService(UserRepository userRepository, UserMapper userMapper) {
+    public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.userMapper = userMapper;
     }
 
-    public UserDto saveUser(final UserDto userDto) {
-        return userMapper.mapToUserDto(userRepository.save(userMapper.mapToUser(userDto)));
+    public User saveUser(User user) {
+        return userRepository.save(user);
     }
 
-    public UserDto getUserById(final Long id) throws UserNotFoundException {
-        return userMapper.mapToUserDto(userRepository.findById(id).orElseThrow(UserNotFoundException::new));
+    public User getUserById(Long id) throws UserNotFoundException {
+        return userRepository.findById(id).orElseThrow(UserNotFoundException::new);
     }
 
-    public UserDto getUserByEmail(final String email) throws UserNotFoundException {
-        return userMapper.mapToUserDto(userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new));
+    public User getUserByEmail(String email) throws UserNotFoundException {
+        return userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new);
     }
 
-    public UserDto getUserByPhoneNumber(final int phoneNumber) throws UserNotFoundException {
-        return userMapper.mapToUserDto(userRepository.findByPhoneNumber(phoneNumber).orElseThrow(UserNotFoundException::new));
+    public User getUserByPhoneNumber(int phoneNumber) throws UserNotFoundException {
+        return userRepository.findByPhoneNumber(phoneNumber).orElseThrow(UserNotFoundException::new);
     }
 
-    public List<UserDto> getAllUsers() {
-        return userMapper.mapToUserDtoList(userRepository.findAll());
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
     }
 
-    public void deleteUser(final Long id) {
+    public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }
 }

@@ -1,8 +1,7 @@
 package com.carRental.service;
 
-import com.carRental.domain.dto.CarDto;
+import com.carRental.domain.Car;
 import com.carRental.exceptions.CarNotFoundException;
-import com.carRental.mapper.CarMapper;
 import com.carRental.repository.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,51 +15,49 @@ import java.util.List;
 public class CarService {
 
     private final CarRepository carRepository;
-    private final CarMapper carMapper;
 
     @Autowired
-    public CarService(CarRepository carRepository, CarMapper carMapper) {
+    public CarService(CarRepository carRepository) {
         this.carRepository = carRepository;
-        this.carMapper = carMapper;
     }
 
-    public CarDto saveCar(final CarDto carDto) {
-        return carMapper.mapToCarDto(carRepository.save(carMapper.mapToCar(carDto)));
+    public Car saveCar(Car car) {
+        return carRepository.save(car);
     }
 
-    public CarDto getCarById(final Long id) throws CarNotFoundException {
-        return carMapper.mapToCarDto(carRepository.findById(id).orElseThrow(CarNotFoundException::new));
+    public Car getCarById(Long id) throws CarNotFoundException {
+        return carRepository.findById(id).orElseThrow(CarNotFoundException::new);
     }
 
-    public CarDto getCarByVin(final String vin) throws CarNotFoundException {
-        return carMapper.mapToCarDto(carRepository.findByVin(vin).orElseThrow(CarNotFoundException::new));
+    public Car getCarByVin(String vin) throws CarNotFoundException {
+        return carRepository.findByVin(vin).orElseThrow(CarNotFoundException::new);
     }
 
-    public List<CarDto> getCars() {
-        return carMapper.mapToCarDtoList(carRepository.findAll());
+    public List<Car> getCars() {
+        return carRepository.findAll();
     }
 
-    public List<CarDto> getCarsByBrand(final String brand) {
-        return carMapper.mapToCarDtoList(carRepository.findAllByBrand(brand));
+    public List<Car> getCarsByBrand(String brand) {
+        return (carRepository.findAllByBrand(brand));
     }
 
-    public List<CarDto> getCarsByFuelType(final String fuelType) {
-        return carMapper.mapToCarDtoList(carRepository.findAllByFuelType(fuelType));
+    public List<Car> getCarsByFuelType(String fuelType) {
+        return carRepository.findAllByFuelType(fuelType);
     }
 
-    public List<CarDto> getCarsByBodyClass(final String bodyClass) {
-        return carMapper.mapToCarDtoList(carRepository.findAllByBodyClass(bodyClass));
+    public List<Car> getCarsByBodyClass(String bodyClass) {
+        return carRepository.findAllByBodyClass(bodyClass);
     }
 
-    public List<CarDto> getCarsByMileageLessThen(final int distance) {
-        return carMapper.mapToCarDtoList(carRepository.findAllByMileageLessThan(distance));
+    public List<Car> getCarsByMileageLessThen(int distance) {
+        return carRepository.findAllByMileageLessThan(distance);
     }
 
-    public List<CarDto> getCarsByCostPerDayLessThan(final BigDecimal cost) {
-        return carMapper.mapToCarDtoList(carRepository.findAllByCostPerDayLessThan(cost));
+    public List<Car> getCarsByCostPerDayLessThan(BigDecimal cost) {
+        return carRepository.findAllByCostPerDayLessThan(cost);
     }
 
-    public void deleteCar(final Long id) {
+    public void deleteCar(Long id) {
         carRepository.deleteById(id);
     }
 }

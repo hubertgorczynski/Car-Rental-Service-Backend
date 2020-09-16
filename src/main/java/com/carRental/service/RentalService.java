@@ -9,7 +9,6 @@ import com.carRental.domain.dto.RentalExtensionDto;
 import com.carRental.exceptions.CarNotFoundException;
 import com.carRental.exceptions.RentalNotFoundException;
 import com.carRental.exceptions.UserNotFoundException;
-import com.carRental.mapper.RentalMapper;
 import com.carRental.repository.CarRepository;
 import com.carRental.repository.RentalRepository;
 import com.carRental.repository.UserRepository;
@@ -25,28 +24,25 @@ import java.util.List;
 public class RentalService {
 
     private final RentalRepository rentalRepository;
-    private final RentalMapper rentalMapper;
     private final UserRepository userRepository;
     private final CarRepository carRepository;
 
     @Autowired
-    public RentalService(RentalRepository rentalRepository, RentalMapper rentalMapper, UserRepository userRepository,
-                         CarRepository carRepository) {
+    public RentalService(RentalRepository rentalRepository, UserRepository userRepository, CarRepository carRepository) {
         this.rentalRepository = rentalRepository;
-        this.rentalMapper = rentalMapper;
         this.userRepository = userRepository;
         this.carRepository = carRepository;
     }
 
-    public RentalDto getRentalById(final Long id) throws RentalNotFoundException {
-        return rentalMapper.mapToRentalDto(rentalRepository.findById(id).orElseThrow(RentalNotFoundException::new));
+    public Rental getRentalById(Long id) throws RentalNotFoundException {
+        return rentalRepository.findById(id).orElseThrow(RentalNotFoundException::new);
     }
 
-    public List<RentalDto> getRentals() {
-        return rentalMapper.mapToRentalDtoList(rentalRepository.findAll());
+    public List<Rental> getRentals() {
+        return rentalRepository.findAll();
     }
 
-    public RentalDto createRental(final RentalDto rentalDto) throws UserNotFoundException, CarNotFoundException {
+    public Rental createRental(RentalDto rentalDto) throws UserNotFoundException, CarNotFoundException {
         User user = userRepository.findById(rentalDto.getUserId()).orElseThrow(UserNotFoundException::new);
         Car car = carRepository.findById(rentalDto.getCarId()).orElseThrow(CarNotFoundException::new);
 
@@ -59,10 +55,10 @@ public class RentalService {
                 user,
                 car);
 
-        return rentalMapper.mapToRentalDto(rentalRepository.save(rental));
+        return rentalRepository.save(rental);
     }
 
-    public RentalDto extendRental(final RentalExtensionDto rentalExtensionDto) throws RentalNotFoundException {
+    public Rental extendRental(RentalExtensionDto rentalExtensionDto) throws RentalNotFoundException {
         Rental rental = rentalRepository.findById(rentalExtensionDto.getRentalId()).orElseThrow(RentalNotFoundException::new);
 
         LocalDate updateReturnDate = rental.getRentedTo().plusDays(rentalExtensionDto.getExtension());
@@ -73,10 +69,10 @@ public class RentalService {
                 rental.getUser(),
                 rental.getCar());
 
-        return rentalMapper.mapToRentalDto(rentalRepository.save(updatedRental));
+        return rentalRepository.save(updatedRental);
     }
 
-    public void closeRental(final Long id) throws RentalNotFoundException {
+    public void closeRental(Long id) throws RentalNotFoundException {
         Rental rental = rentalRepository.findById(id).orElseThrow(RentalNotFoundException::new);
 
         rental.getUser().getRentals().remove(rental);

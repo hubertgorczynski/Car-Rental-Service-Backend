@@ -5,7 +5,7 @@ import com.carRental.domain.dto.RentalExtensionDto;
 import com.carRental.exceptions.CarNotFoundException;
 import com.carRental.exceptions.RentalNotFoundException;
 import com.carRental.exceptions.UserNotFoundException;
-import com.carRental.service.RentalService;
+import com.carRental.facade.RentalFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,40 +16,40 @@ import java.util.List;
 @RequestMapping("/v1/rentals")
 public class RentalController {
 
-    private final RentalService rentalService;
+    private final RentalFacade rentalFacade;
 
     @Autowired
-    public RentalController(RentalService rentalService) {
-        this.rentalService = rentalService;
+    public RentalController(RentalFacade rentalFacade) {
+        this.rentalFacade = rentalFacade;
     }
 
     @GetMapping("/{id}")
     public RentalDto getRentalById(@PathVariable Long id) throws RentalNotFoundException {
-        return rentalService.getRentalById(id);
+        return rentalFacade.getRentalById(id);
     }
 
     @GetMapping
     public List<RentalDto> getAllRentals() {
-        return rentalService.getRentals();
+        return rentalFacade.getRentals();
     }
 
     @PostMapping
     public RentalDto createRental(@RequestBody RentalDto rentalDto) throws CarNotFoundException, UserNotFoundException {
-        return rentalService.createRental(rentalDto);
+        return rentalFacade.createRental(rentalDto);
     }
 
     @PutMapping
     public RentalDto modifyRental(@RequestBody RentalDto rentalDto) throws CarNotFoundException, UserNotFoundException {
-        return rentalService.createRental(rentalDto);
+        return rentalFacade.createRental(rentalDto);
     }
 
     @PutMapping("/extend_rental")
     public RentalDto extendRental(@RequestBody RentalExtensionDto rentalExtensionDto) throws RentalNotFoundException {
-        return rentalService.extendRental(rentalExtensionDto);
+        return rentalFacade.extendRental(rentalExtensionDto);
     }
 
     @DeleteMapping("/{id}")
     public void closeRental(@PathVariable Long id) throws RentalNotFoundException {
-        rentalService.closeRental(id);
+        rentalFacade.closeRental(id);
     }
 }

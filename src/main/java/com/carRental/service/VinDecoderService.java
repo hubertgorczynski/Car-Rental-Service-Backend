@@ -15,7 +15,7 @@ public class VinDecoderService {
         this.vinDecoderClient = vinDecoderClient;
     }
 
-    public VinDecodedDto decode(final String vin) {
+    public VinDecodedDto decode(String vin) {
         return vinDecoderClient.decodeVin(vin);
     }
 }
