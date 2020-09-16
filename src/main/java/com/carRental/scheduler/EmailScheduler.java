@@ -43,12 +43,12 @@ public class EmailScheduler {
                 adminConfig.getAdminMail(),
                 SUBJECT,
                 "\n Dear car rental administrator." +
-                        "\n\t Below You can find daily statistics considering Your database: " +
-                        "\n Current number of registered users: " + userRepositorySize +
-                        "\n Current number of rented cars: " + carRentedSize +
-                        "\n Current number of available cars: " + carAvailableSize +
-                        "\n Current number of all rentals: " + rentalRepositorySize +
-                        "\n\t Have a nice day!"
+                        "\n\t Below You can find daily statistics considering Your database: \n" +
+                        "\n\t Current number of registered users: " + userRepositorySize +
+                        "\n\t Current number of rented cars: " + carRentedSize +
+                        "\n\t Current number of available cars: " + carAvailableSize +
+                        "\n\t Current number of all rentals: " + rentalRepositorySize + "\n" +
+                        "\n Have a nice day!"
         ));
     }
 }
