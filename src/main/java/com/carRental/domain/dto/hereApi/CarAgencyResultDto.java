@@ -1,4 +1,4 @@
-package com.carRental.domain.dto;
+package com.carRental.domain.dto.hereApi;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -12,14 +12,11 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class EmailVerificationDto {
+public class CarAgencyResultDto {
 
-    @JsonProperty("formatCheck")
-    private boolean formatCheck;
+    @JsonProperty("title")
+    private String title;
 
-    @JsonProperty("smtpCheck")
-    private boolean smtpCheck;
-
-    @JsonProperty("dnsCheck")
-    private boolean dnsCheck;
+    @JsonProperty("address")
+    private CarAgencyAddressDto address;
 }

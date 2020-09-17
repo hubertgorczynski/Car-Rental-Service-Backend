@@ -1,6 +1,6 @@
 package com.carRental.controller;
 
-import com.carRental.domain.dto.EmailVerificationDto;
+import com.carRental.domain.dto.emailVerificationApi.EmailVerificationDto;
 import com.carRental.service.EmailVerificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

@@ -1,4 +1,4 @@
-package com.carRental.domain.dto;
+package com.carRental.domain.dto.hereApi;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -7,15 +7,18 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
+import java.text.DecimalFormat;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class VinDecodedDto {
+public class GeocodePositionDto {
 
-    @JsonProperty("Results")
-    private List<VinResultsDto> resultsDtoList;
+    @JsonProperty("lat")
+    private DecimalFormat latitude;
+
+    @JsonProperty("lng")
+    private DecimalFormat longitude;
 }

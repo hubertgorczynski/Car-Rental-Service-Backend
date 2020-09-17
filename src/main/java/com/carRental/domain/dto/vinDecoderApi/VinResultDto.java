@@ -1,4 +1,4 @@
-package com.carRental.domain.dto;
+package com.carRental.domain.dto.vinDecoderApi;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -12,7 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class VinResultsDto {
+public class VinResultDto {
 
     @JsonProperty("Make")
     private String manufacturer;

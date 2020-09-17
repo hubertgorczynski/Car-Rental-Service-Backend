@@ -1,6 +1,6 @@
 package com.carRental.controller;
 
-import com.carRental.domain.dto.VinDecodedDto;
+import com.carRental.domain.dto.vinDecoderApi.VinDecodedDto;
 import com.carRental.service.VinDecoderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
