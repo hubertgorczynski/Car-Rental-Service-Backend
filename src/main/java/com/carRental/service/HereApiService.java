@@ -5,6 +5,7 @@ import com.carRental.domain.dto.hereApi.GeocodeDto;
 import com.carRental.hereApi.client.HereApiClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Service
 public class HereApiService {
@@ -20,7 +21,7 @@ public class HereApiService {
         return hereApiClient.locateGeocode(postalCode);
     }
 
-    public CarAgencyDto searchCarRentalAgencies(String geoCoordinates) {
-        return hereApiClient.searchCarRentalAgencies(geoCoordinates);
+    public CarAgencyDto searchCarRentalAgencies(double latitude, double longitude) {
+        return hereApiClient.searchCarRentalAgencies(latitude, longitude);
     }
 }

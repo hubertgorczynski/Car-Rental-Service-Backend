@@ -18,9 +18,9 @@ public class HereApiController {
         this.hereApiService = hereApiService;
     }
 
-    @GetMapping("search_nearest_agencies_by_coordinates/{geoCoordinates}")
-    public CarAgencyDto searchCarRentalAgencies(@PathVariable String geoCoordinates) {
-        return hereApiService.searchCarRentalAgencies(geoCoordinates);
+    @GetMapping("search_nearest_agencies_by_coordinates")
+    public CarAgencyDto searchCarRentalAgencies(@RequestParam double latitude, @RequestParam double longitude) {
+        return hereApiService.searchCarRentalAgencies(latitude, longitude);
     }
 
     @GetMapping("check_coordinates_by_postal_code/{postalCode}")
