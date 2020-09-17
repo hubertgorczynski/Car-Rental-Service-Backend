@@ -25,19 +25,7 @@ public interface CarRepository extends CrudRepository<Car, Long> {
 
     List<Car> findAllByCostPerDayLessThan(BigDecimal maxCost);
 
-    @Override
-    Optional<Car> findById(Long id);
-
     Optional<Car> findByVin(String vin);
-
-    @Override
-    Car save(Car car);
-
-    @Override
-    void deleteById(Long id);
-
-    @Override
-    long count();
 
     long countAllByStatus(Status status);
 }
