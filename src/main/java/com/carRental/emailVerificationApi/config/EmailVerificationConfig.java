@@ -7,12 +7,6 @@ import org.springframework.stereotype.Component;
 @Getter
 @Component
 public class EmailVerificationConfig {
-    @Value("${rapid.api.host}")
-    private String rapidApiHost;
-
-    @Value("${rapid.api.key}")
-    private String rapidApiKey;
-
     @Value("${emailverification.api.endpoint}")
     private String emailVerificationApiEndpoint;
 

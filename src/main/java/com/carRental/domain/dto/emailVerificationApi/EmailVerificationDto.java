@@ -15,11 +15,11 @@ import lombok.Setter;
 public class EmailVerificationDto {
 
     @JsonProperty("formatCheck")
-    private boolean formatCheck;
+    private String formatCheck;
 
     @JsonProperty("smtpCheck")
-    private boolean smtpCheck;
+    private String smtpCheck;
 
     @JsonProperty("dnsCheck")
-    private boolean dnsCheck;
+    private String dnsCheck;
 }
