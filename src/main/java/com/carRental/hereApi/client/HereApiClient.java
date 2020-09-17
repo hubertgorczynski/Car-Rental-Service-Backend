@@ -35,7 +35,7 @@ public class HereApiClient {
     private URI getLocalizerUri(String postalCode) {
         return UriComponentsBuilder.fromHttpUrl(hereApiConfig.getHereApiEndpoint() + "/geocode")
                 .queryParam("apiKey", hereApiConfig.getHereApiKey())
-                .queryParam("qq", postalCode)
+                .queryParam("qq", "postalCode=" + postalCode)
                 .queryParam("limit", 1)
                 .build().encode().toUri();
     }

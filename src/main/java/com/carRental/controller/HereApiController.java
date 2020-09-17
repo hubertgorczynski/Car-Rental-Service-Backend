@@ -23,7 +23,7 @@ public class HereApiController {
         return hereApiService.searchCarRentalAgencies(geoCoordinates);
     }
 
-    @GetMapping("check_your_coordinates_by_postal_code/{postalCode}")
+    @GetMapping("check_coordinates_by_postal_code/{postalCode}")
     public GeocodeDto get(@PathVariable String postalCode) {
         return hereApiService.locateGeocode(postalCode);
     }

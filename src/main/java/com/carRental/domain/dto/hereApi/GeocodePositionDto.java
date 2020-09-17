@@ -7,8 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.text.DecimalFormat;
-
 @Getter
 @Setter
 @AllArgsConstructor
@@ -17,8 +15,8 @@ import java.text.DecimalFormat;
 public class GeocodePositionDto {
 
     @JsonProperty("lat")
-    private DecimalFormat latitude;
+    private String latitude;
 
     @JsonProperty("lng")
-    private DecimalFormat longitude;
+    private String longitude;
 }
