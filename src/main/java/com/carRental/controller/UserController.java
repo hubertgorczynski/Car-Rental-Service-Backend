@@ -1,6 +1,7 @@
 package com.carRental.controller;
 
 import com.carRental.domain.dto.UserDto;
+import com.carRental.exceptions.InvalidEmailException;
 import com.carRental.exceptions.UserNotFoundException;
 import com.carRental.facade.UserFacade;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,12 +42,12 @@ public class UserController {
     }
 
     @PostMapping
-    public UserDto createUser(@RequestBody UserDto userDto) {
+    public UserDto createUser(@RequestBody UserDto userDto) throws InvalidEmailException {
         return userFacade.saveUser(userDto);
     }
 
     @PutMapping
-    public UserDto modifyUser(@RequestBody UserDto userDto) {
+    public UserDto modifyUser(@RequestBody UserDto userDto) throws InvalidEmailException {
         return userFacade.saveUser(userDto);
     }
 

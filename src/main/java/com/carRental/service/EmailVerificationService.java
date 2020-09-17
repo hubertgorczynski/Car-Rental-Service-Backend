@@ -15,7 +15,7 @@ public class EmailVerificationService {
         this.emailVerificationClient = emailVerificationClient;
     }
 
-    public EmailVerificationDto isEmailValid(final String email) {
+    public EmailVerificationDto verifyEmail(final String email) {
         return emailVerificationClient.verifyEmail(email);
     }
 }
