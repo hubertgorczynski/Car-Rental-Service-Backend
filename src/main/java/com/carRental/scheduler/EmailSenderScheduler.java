@@ -1,7 +1,7 @@
 package com.carRental.scheduler;
 
 import com.carRental.domain.Mail;
-import com.carRental.scheduler.config.AdminConfig;
+import com.carRental.config.AdminConfiguration;
 import com.carRental.service.EmailSenderService;
 import com.carRental.strategy.EmailBodyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,14 +14,14 @@ public class EmailSenderScheduler {
     private static final String SUBJECT = "Car rental: Your daily email!";
 
     private final EmailSenderService emailSenderService;
-    private final AdminConfig adminConfig;
+    private final AdminConfiguration adminConfiguration;
     private final EmailBodyService emailBodyService;
 
     @Autowired
-    public EmailSenderScheduler(EmailSenderService emailSenderService, AdminConfig adminConfig,
+    public EmailSenderScheduler(EmailSenderService emailSenderService, AdminConfiguration adminConfiguration,
                                 @Qualifier("statisticsEmailBodyService") EmailBodyService emailBodyService) {
         this.emailSenderService = emailSenderService;
-        this.adminConfig = adminConfig;
+        this.adminConfiguration = adminConfiguration;
         this.emailBodyService = emailBodyService;
     }
 
@@ -29,7 +29,7 @@ public class EmailSenderScheduler {
     @Scheduled(cron = "0 0 6 * * *")
     public void sendDailyEmail() {
         emailSenderService.sendMail(new Mail(
-                adminConfig.getAdminMail(),
+                adminConfiguration.getAdminMail(),
                 SUBJECT,
                 emailBodyService.emailBodyCreate()));
     }
