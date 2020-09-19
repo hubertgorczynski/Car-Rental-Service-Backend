@@ -21,12 +21,12 @@ public class CarController {
         this.carFacade = carFacade;
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("by_id/{id}")
     public CarDto getCarById(@PathVariable Long id) throws CarNotFoundException {
         return carFacade.getCarById(id);
     }
 
-    @GetMapping("/{vin}")
+    @GetMapping("by_vin/{vin}")
     public CarDto getCarByVin(@PathVariable String vin) throws CarNotFoundException {
         return carFacade.getCarByVin(vin);
     }

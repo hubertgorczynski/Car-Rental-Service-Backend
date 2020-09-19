@@ -1,5 +1,6 @@
 package com.carRental.facade;
 
+import com.carRental.domain.User;
 import com.carRental.domain.dto.UserDto;
 import com.carRental.domain.dto.emailVerificationApi.EmailVerificationDto;
 import com.carRental.exceptions.InvalidEmailException;
@@ -10,6 +11,9 @@ import com.carRental.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Component
@@ -28,7 +32,10 @@ public class UserFacade {
 
     public UserDto saveUser(UserDto userDto) throws InvalidEmailException {
         if (isEmailValid(userDto.getEmail())) {
-            return userMapper.mapToUserDto(userService.saveUser(userMapper.mapToUser(userDto)));
+            User user = userMapper.mapToUser(userDto);
+            user.setAccountCreated(LocalDate.now());
+            userService.saveUser(user);
+            return userMapper.mapToUserDto(user);
         } else {
             throw new InvalidEmailException();
         }
