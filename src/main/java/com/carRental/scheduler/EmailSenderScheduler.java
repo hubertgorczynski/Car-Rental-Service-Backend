@@ -1,13 +1,11 @@
 package com.carRental.scheduler;
 
 import com.carRental.domain.Mail;
-import com.carRental.domain.Status;
-import com.carRental.repository.CarRepository;
-import com.carRental.repository.RentalRepository;
-import com.carRental.repository.UserRepository;
 import com.carRental.scheduler.config.AdminConfig;
 import com.carRental.service.EmailSenderService;
+import com.carRental.strategy.EmailBodyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -17,38 +15,22 @@ public class EmailSenderScheduler {
 
     private final EmailSenderService emailSenderService;
     private final AdminConfig adminConfig;
-    private final CarRepository carRepository;
-    private final UserRepository userRepository;
-    private final RentalRepository rentalRepository;
+    private final EmailBodyService emailBodyService;
 
     @Autowired
-    public EmailSenderScheduler(EmailSenderService emailSenderService, AdminConfig adminConfig, CarRepository carRepository,
-                                UserRepository userRepository, RentalRepository rentalRepository) {
+    public EmailSenderScheduler(EmailSenderService emailSenderService, AdminConfig adminConfig,
+                                @Qualifier("statisticsEmailBodyService") EmailBodyService emailBodyService) {
         this.emailSenderService = emailSenderService;
         this.adminConfig = adminConfig;
-        this.carRepository = carRepository;
-        this.userRepository = userRepository;
-        this.rentalRepository = rentalRepository;
+        this.emailBodyService = emailBodyService;
     }
 
-    //@Scheduled(cron = "*/30 * * * * *") - testing
+    //@Scheduled(cron = "*/30 * * * * *")
     @Scheduled(cron = "0 0 6 * * *")
     public void sendDailyEmail() {
-        long userRepositorySize = userRepository.count();
-        long carRentedSize = carRepository.countAllByStatus(Status.RENTED);
-        long carAvailableSize = carRepository.countAllByStatus(Status.AVAILABLE);
-        long rentalRepositorySize = rentalRepository.count();
-
         emailSenderService.sendMail(new Mail(
                 adminConfig.getAdminMail(),
                 SUBJECT,
-                "\n Dear car rental administrator." +
-                        "\n\t Below You can find daily statistics considering Your database: \n" +
-                        "\n\t Current number of registered users: " + userRepositorySize +
-                        "\n\t Current number of rented cars: " + carRentedSize +
-                        "\n\t Current number of available cars: " + carAvailableSize +
-                        "\n\t Current number of all rentals: " + rentalRepositorySize + "\n" +
-                        "\n Have a nice day!"
-        ));
+                emailBodyService.emailBodyCreate()));
     }
 }
