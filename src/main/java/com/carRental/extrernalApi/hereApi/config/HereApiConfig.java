@@ -1,4 +1,4 @@
-package com.carRental.hereApi.config;
+package com.carRental.extrernalApi.hereApi.config;
 
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;

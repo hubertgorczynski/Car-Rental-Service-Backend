@@ -1,4 +1,4 @@
-package com.carRental.vinDecoderApi.config;
+package com.carRental.extrernalApi.vinDecoderApi.config;
 
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;

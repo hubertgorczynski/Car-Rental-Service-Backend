@@ -12,7 +12,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 @Component
-public class EmailScheduler {
+public class EmailSenderScheduler {
     private static final String SUBJECT = "Car rental: Your daily email!";
 
     private final EmailSenderService emailSenderService;
@@ -22,8 +22,8 @@ public class EmailScheduler {
     private final RentalRepository rentalRepository;
 
     @Autowired
-    public EmailScheduler(EmailSenderService emailSenderService, AdminConfig adminConfig, CarRepository carRepository,
-                          UserRepository userRepository, RentalRepository rentalRepository) {
+    public EmailSenderScheduler(EmailSenderService emailSenderService, AdminConfig adminConfig, CarRepository carRepository,
+                                UserRepository userRepository, RentalRepository rentalRepository) {
         this.emailSenderService = emailSenderService;
         this.adminConfig = adminConfig;
         this.carRepository = carRepository;

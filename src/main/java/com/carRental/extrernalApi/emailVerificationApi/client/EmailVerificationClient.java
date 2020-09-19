@@ -1,7 +1,7 @@
-package com.carRental.emailVerificationApi.client;
+package com.carRental.extrernalApi.emailVerificationApi.client;
 
 import com.carRental.domain.dto.emailVerificationApi.EmailVerificationDto;
-import com.carRental.emailVerificationApi.config.EmailVerificationConfig;
+import com.carRental.extrernalApi.emailVerificationApi.config.EmailVerificationConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;

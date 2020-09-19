@@ -1,8 +1,8 @@
-package com.carRental.hereApi.client;
+package com.carRental.extrernalApi.hereApi.client;
 
 import com.carRental.domain.dto.hereApi.CarAgencyDto;
 import com.carRental.domain.dto.hereApi.GeocodeDto;
-import com.carRental.hereApi.config.HereApiConfig;
+import com.carRental.extrernalApi.hereApi.config.HereApiConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;

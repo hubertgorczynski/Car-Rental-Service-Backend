@@ -1,7 +1,7 @@
-package com.carRental.vinDecoderApi.client;
+package com.carRental.extrernalApi.vinDecoderApi.client;
 
 import com.carRental.domain.dto.vinDecoderApi.VinDecodedDto;
-import com.carRental.vinDecoderApi.config.VinDecoderConfig;
+import com.carRental.extrernalApi.vinDecoderApi.config.VinDecoderConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;

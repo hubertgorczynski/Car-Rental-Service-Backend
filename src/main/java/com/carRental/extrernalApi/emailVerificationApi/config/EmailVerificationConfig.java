@@ -1,4 +1,4 @@
-package com.carRental.emailVerificationApi.config;
+package com.carRental.extrernalApi.emailVerificationApi.config;
 
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;

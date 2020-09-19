@@ -2,7 +2,7 @@ package com.carRental.service;
 
 import com.carRental.domain.dto.hereApi.CarAgencyDto;
 import com.carRental.domain.dto.hereApi.GeocodeDto;
-import com.carRental.hereApi.client.HereApiClient;
+import com.carRental.extrernalApi.hereApi.client.HereApiClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
