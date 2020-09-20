@@ -80,4 +80,18 @@ public class Car {
         this.costPerDay = costPerDay;
         this.status = Status.AVAILABLE;
     }
+
+    public Car(Long id, String vin, String brand, String model, int productionYear, String fuelType,
+               double engineCapacity, String bodyClass, int mileage, BigDecimal costPerDay) {
+        this.id = id;
+        this.vin = vin;
+        this.brand = brand;
+        this.model = model;
+        this.productionYear = productionYear;
+        this.fuelType = fuelType;
+        this.engineCapacity = engineCapacity;
+        this.bodyClass = bodyClass;
+        this.mileage = mileage;
+        this.costPerDay = costPerDay;
+    }
 }
