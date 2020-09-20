@@ -34,22 +34,26 @@ public class RentalController {
     }
 
     @PostMapping
-    public RentalDto createRental(@RequestBody RentalDto rentalDto) throws CarNotFoundException, UserNotFoundException {
+    public RentalDto createRental(@RequestBody RentalDto rentalDto) throws CarNotFoundException, UserNotFoundException,
+            RentalNotFoundException {
         return rentalFacade.createRental(rentalDto);
     }
 
     @PutMapping
-    public RentalDto modifyRental(@RequestBody RentalDto rentalDto) throws CarNotFoundException, UserNotFoundException {
+    public RentalDto modifyRental(@RequestBody RentalDto rentalDto) throws CarNotFoundException, UserNotFoundException,
+            RentalNotFoundException {
         return rentalFacade.createRental(rentalDto);
     }
 
     @PutMapping("/extend_rental")
-    public RentalDto extendRental(@RequestBody RentalExtensionDto rentalExtensionDto) throws RentalNotFoundException {
+    public RentalDto extendRental(@RequestBody RentalExtensionDto rentalExtensionDto) throws RentalNotFoundException,
+            CarNotFoundException, UserNotFoundException {
         return rentalFacade.extendRental(rentalExtensionDto);
     }
 
     @DeleteMapping("/{id}")
-    public void closeRental(@PathVariable Long id) throws RentalNotFoundException {
+    public void closeRental(@PathVariable Long id) throws RentalNotFoundException, CarNotFoundException,
+            UserNotFoundException {
         rentalFacade.closeRental(id);
     }
 }

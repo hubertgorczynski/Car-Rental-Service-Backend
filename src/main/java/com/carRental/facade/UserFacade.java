@@ -6,6 +6,7 @@ import com.carRental.domain.dto.emailVerificationApi.EmailVerificationDto;
 import com.carRental.exceptions.InvalidEmailException;
 import com.carRental.exceptions.UserNotFoundException;
 import com.carRental.mapper.UserMapper;
+import com.carRental.service.emailService.EmailToUsersService;
 import com.carRental.service.emailService.EmailVerificationService;
 import com.carRental.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,20 +21,23 @@ public class UserFacade {
     private final UserService userService;
     private final UserMapper userMapper;
     private final EmailVerificationService emailVerificationService;
+    private final EmailToUsersService emailToUsersService;
 
     @Autowired
-    public UserFacade(UserService userService, UserMapper userMapper, EmailVerificationService emailVerificationService) {
+    public UserFacade(UserService userService, UserMapper userMapper, EmailVerificationService emailVerificationService,
+                      EmailToUsersService emailToUsersService) {
         this.userService = userService;
         this.userMapper = userMapper;
         this.emailVerificationService = emailVerificationService;
+        this.emailToUsersService = emailToUsersService;
     }
 
     public UserDto saveUser(UserDto userDto) throws InvalidEmailException {
         if (isEmailValid(userDto.getEmail())) {
             User user = userMapper.mapToUser(userDto);
             user.setAccountCreated(LocalDate.now());
-            userService.saveUser(user);
-            return userMapper.mapToUserDto(user);
+            emailToUsersService.sendEmailAboutCreatingUser(userDto);
+            return userMapper.mapToUserDto(userService.saveUser(user));
         } else {
             throw new InvalidEmailException();
         }
