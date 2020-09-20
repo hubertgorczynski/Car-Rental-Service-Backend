@@ -6,14 +6,12 @@ import com.carRental.domain.dto.emailVerificationApi.EmailVerificationDto;
 import com.carRental.exceptions.InvalidEmailException;
 import com.carRental.exceptions.UserNotFoundException;
 import com.carRental.mapper.UserMapper;
-import com.carRental.service.EmailVerificationService;
+import com.carRental.service.emailService.EmailVerificationService;
 import com.carRental.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 @Component

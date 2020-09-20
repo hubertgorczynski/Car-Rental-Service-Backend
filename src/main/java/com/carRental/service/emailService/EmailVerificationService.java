@@ -1,4 +1,4 @@
-package com.carRental.service;
+package com.carRental.service.emailService;
 
 import com.carRental.domain.dto.emailVerificationApi.EmailVerificationDto;
 import com.carRental.extrernalApi.emailVerificationApi.client.EmailVerificationClient;

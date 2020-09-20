@@ -1,4 +1,4 @@
-package com.carRental.service;
+package com.carRental.service.emailService;
 
 import com.carRental.domain.Mail;
 import org.slf4j.Logger;

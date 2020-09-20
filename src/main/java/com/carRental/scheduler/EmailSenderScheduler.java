@@ -2,7 +2,7 @@ package com.carRental.scheduler;
 
 import com.carRental.domain.Mail;
 import com.carRental.config.AdminConfiguration;
-import com.carRental.service.EmailSenderService;
+import com.carRental.service.emailService.EmailSenderService;
 import com.carRental.strategy.EmailBodyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
