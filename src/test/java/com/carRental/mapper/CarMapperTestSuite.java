@@ -21,6 +21,32 @@ public class CarMapperTestSuite {
     @InjectMocks
     private CarMapper carMapper;
 
+    Car car = new Car(
+            1L,
+            "sampleVin",
+            "Audi",
+            "A3",
+            2015,
+            "Diesel",
+            3.0,
+            "Saloon",
+            250000,
+            new BigDecimal(25),
+            Status.AVAILABLE);
+
+    CarDto carDto = new CarDto(
+            1L,
+            "sampleVin",
+            "Audi",
+            "A3",
+            2015,
+            "Diesel",
+            3.0,
+            "Saloon",
+            250000,
+            new BigDecimal(25),
+            Status.AVAILABLE);
+
     @Test
     public void mapToCarTest() {
         //Given
@@ -35,19 +61,6 @@ public class CarMapperTestSuite {
                 250000,
                 new BigDecimal(25));
 
-        CarDto carDto = new CarDto(
-                1L,
-                "sampleVin",
-                "Audi",
-                "A3",
-                2015,
-                "Diesel",
-                3.0,
-                "Saloon",
-                250000,
-                new BigDecimal(25),
-                Status.AVAILABLE);
-
         //When
         Car mappedCar = carMapper.mapToCar(carDto);
 
@@ -61,68 +74,20 @@ public class CarMapperTestSuite {
     @Test
     public void mapToCarDtoTest() {
         //Given
-        Car car = new Car(
-                1L,
-                "sampleVin",
-                "Audi",
-                "A3",
-                2015,
-                "Diesel",
-                3.0,
-                "Saloon",
-                250000,
-                new BigDecimal(25));
-
-        CarDto carDto = new CarDto(
-                1L,
-                "sampleVin",
-                "Audi",
-                "A3",
-                2015,
-                "Diesel",
-                3.0,
-                "Saloon",
-                250000,
-                new BigDecimal(25),
-                Status.AVAILABLE);
 
         //When
-        CarDto mappedCar = carMapper.mapToCarDto(car);
+        CarDto mappedCarDto = carMapper.mapToCarDto(car);
 
         //Then
-        assertEquals(carDto.getId(), mappedCar.getId());
-        assertEquals(carDto.getBrand(), mappedCar.getBrand());
-        assertEquals(carDto.getProductionYear(), mappedCar.getProductionYear());
+        assertEquals(carDto.getId(), mappedCarDto.getId());
+        assertEquals(carDto.getBrand(), mappedCarDto.getBrand());
+        assertEquals(carDto.getProductionYear(), mappedCarDto.getProductionYear());
+        assertEquals(car.getStatus(), mappedCarDto.getStatus());
     }
 
     @Test
     public void mapToCarDtoList() {
         //Given
-        Car car = new Car(
-                1L,
-                "sampleVin",
-                "Audi",
-                "A3",
-                2015,
-                "Diesel",
-                3.0,
-                "Saloon",
-                250000,
-                new BigDecimal(25));
-
-        CarDto carDto = new CarDto(
-                1L,
-                "sampleVin",
-                "Audi",
-                "A3",
-                2015,
-                "Diesel",
-                3.0,
-                "Saloon",
-                250000,
-                new BigDecimal(25),
-                Status.AVAILABLE);
-
         List<Car> carList = Arrays.asList(car);
 
         //When
@@ -136,6 +101,7 @@ public class CarMapperTestSuite {
             assertEquals(c.getId(), carDto.getId());
             assertEquals(c.getBrand(), carDto.getBrand());
             assertEquals(c.getProductionYear(), carDto.getProductionYear());
+            assertEquals(c.getStatus(), carDto.getStatus());
         });
     }
 }

@@ -81,8 +81,9 @@ public class Car {
         this.status = Status.AVAILABLE;
     }
 
+    //Constructor for testSuites only
     public Car(Long id, String vin, String brand, String model, int productionYear, String fuelType,
-               double engineCapacity, String bodyClass, int mileage, BigDecimal costPerDay) {
+               double engineCapacity, String bodyClass, int mileage, BigDecimal costPerDay, Status status) {
         this.id = id;
         this.vin = vin;
         this.brand = brand;
@@ -93,5 +94,6 @@ public class Car {
         this.bodyClass = bodyClass;
         this.mileage = mileage;
         this.costPerDay = costPerDay;
+        this.status = status;
     }
 }
