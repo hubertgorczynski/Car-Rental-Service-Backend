@@ -48,7 +48,7 @@ public class UserController {
 
     @PutMapping
     public UserDto modifyUser(@RequestBody UserDto userDto) throws InvalidEmailException {
-        return userFacade.saveUser(userDto);
+        return userFacade.modifyUser(userDto);
     }
 
     @DeleteMapping("/{id}")

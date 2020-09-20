@@ -43,6 +43,14 @@ public class UserFacade {
         }
     }
 
+    public UserDto modifyUser(UserDto userDto) throws InvalidEmailException{
+        if (isEmailValid(userDto.getEmail())) {
+            return userMapper.mapToUserDto(userService.saveUser(userMapper.mapToUser(userDto)));
+        } else {
+            throw new InvalidEmailException();
+        }
+    }
+
     public UserDto getUserById(Long id) throws UserNotFoundException {
         return userMapper.mapToUserDto(userService.getUserById(id));
     }
