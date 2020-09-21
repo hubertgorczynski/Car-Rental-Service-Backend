@@ -1,7 +1,7 @@
 package com.carRental.strategy;
 
 import com.carRental.domain.Rental;
-import com.carRental.domain.dto.RentalEmailDto;
+import com.carRental.domain.dto.RentalComplexDto;
 import com.carRental.mapper.RentalMapper;
 import com.carRental.repository.RentalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +31,8 @@ public class ReminderEmailBodyService implements EmailBodyService {
         List<Rental> closingDelayedRentalList = rentalRepository.findAllByRentedToAfter(today);
         List<Rental> closingSoonRentalList = rentalRepository.findAllByRentedToBefore(today.plusDays(3));
 
-        List<RentalEmailDto> closingDelayedRentalDtoList = rentalMapper.mapToRentalEmailDtoList(closingDelayedRentalList);
-        List<RentalEmailDto> closingSoonRentalDtoList = rentalMapper.mapToRentalEmailDtoList(closingSoonRentalList);
+        List<RentalComplexDto> closingDelayedRentalDtoList = rentalMapper.mapToRentalComplexDtoList(closingDelayedRentalList);
+        List<RentalComplexDto> closingSoonRentalDtoList = rentalMapper.mapToRentalComplexDtoList(closingSoonRentalList);
 
         return ("\n Dear car rental administrator." +
                 "\n\t Below You can find daily reminder for currents rentals: \n" +
@@ -44,9 +44,9 @@ public class ReminderEmailBodyService implements EmailBodyService {
                 "\n Have a nice day!");
     }
 
-    private String streamRentalListToString(List<RentalEmailDto> rentalEmailDtoList) {
-        return rentalEmailDtoList.stream()
-                .map(RentalEmailDto::toString)
+    private String streamRentalListToString(List<RentalComplexDto> rentalComplexDtoList) {
+        return rentalComplexDtoList.stream()
+                .map(RentalComplexDto::toString)
                 .collect(Collectors.joining(",\n", "<<", ">>"));
     }
 }

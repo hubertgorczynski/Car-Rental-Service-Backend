@@ -1,8 +1,7 @@
 package com.carRental.mapper;
 
 import com.carRental.domain.Rental;
-import com.carRental.domain.dto.RentalDto;
-import com.carRental.domain.dto.RentalEmailDto;
+import com.carRental.domain.dto.RentalComplexDto;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -11,29 +10,23 @@ import java.util.stream.Collectors;
 @Component
 public class RentalMapper {
 
-    public RentalDto mapToRentalDto(final Rental rental) {
-        return new RentalDto(
+    public RentalComplexDto mapToRentalComplexDto(final Rental rental) {
+        return new RentalComplexDto(
                 rental.getId(),
                 rental.getRentedFrom(),
                 rental.getRentedTo(),
-                rental.getCar().getId(),
-                rental.getUser().getId());
+                rental.getCost(),
+                rental.getCar().getBrand(),
+                rental.getCar().getModel(),
+                rental.getUser().getName(),
+                rental.getUser().getLastName(),
+                rental.getUser().getEmail(),
+                rental.getUser().getPhoneNumber());
     }
 
-    public List<RentalDto> mapToRentalDtoList(final List<Rental> rentalList) {
+    public List<RentalComplexDto> mapToRentalComplexDtoList(final List<Rental> rentalList) {
         return rentalList.stream()
-                .map(rental -> new RentalDto(
-                        rental.getId(),
-                        rental.getRentedFrom(),
-                        rental.getRentedTo(),
-                        rental.getCar().getId(),
-                        rental.getUser().getId()))
-                .collect(Collectors.toList());
-    }
-
-    public List<RentalEmailDto> mapToRentalEmailDtoList(final List<Rental> rentalList) {
-        return rentalList.stream()
-                .map(rental -> new RentalEmailDto(
+                .map(rental -> new RentalComplexDto(
                         rental.getId(),
                         rental.getRentedFrom(),
                         rental.getRentedTo(),

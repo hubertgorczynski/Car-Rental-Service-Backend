@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class RentalEmailDto {
+public class RentalComplexDto {
     private Long id;
     private LocalDate rentedFrom;
     private LocalDate rentedTo;

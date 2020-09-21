@@ -1,5 +1,6 @@
 package com.carRental.facade;
 
+import com.carRental.domain.dto.RentalComplexDto;
 import com.carRental.domain.dto.RentalDto;
 import com.carRental.domain.dto.RentalExtensionDto;
 import com.carRental.exceptions.CarNotFoundException;
@@ -24,24 +25,24 @@ public class RentalFacade {
         this.rentalMapper = rentalMapper;
     }
 
-    public RentalDto getRentalById(Long id) throws RentalNotFoundException {
-        return rentalMapper.mapToRentalDto(rentalService.getRentalById(id));
+    public RentalComplexDto getRentalById(Long id) throws RentalNotFoundException {
+        return rentalMapper.mapToRentalComplexDto(rentalService.getRentalById(id));
     }
 
-    public List<RentalDto> getRentals() {
-        return rentalMapper.mapToRentalDtoList(rentalService.getRentals());
+    public List<RentalComplexDto> getRentals() {
+        return rentalMapper.mapToRentalComplexDtoList(rentalService.getRentals());
     }
 
-    public RentalDto createRental(RentalDto rentalDto) throws UserNotFoundException, CarNotFoundException {
-        return rentalMapper.mapToRentalDto(rentalService.createRental(rentalDto));
+    public RentalComplexDto createRental(RentalDto rentalDto) throws UserNotFoundException, CarNotFoundException {
+        return rentalMapper.mapToRentalComplexDto(rentalService.createRental(rentalDto));
     }
 
-    public RentalDto modifyRental(RentalDto rentalDto) throws UserNotFoundException, CarNotFoundException {
-        return rentalMapper.mapToRentalDto(rentalService.modifyRental(rentalDto));
+    public RentalComplexDto modifyRental(RentalDto rentalDto) throws UserNotFoundException, CarNotFoundException {
+        return rentalMapper.mapToRentalComplexDto(rentalService.modifyRental(rentalDto));
     }
 
-    public RentalDto extendRental(RentalExtensionDto rentalExtensionDto) throws RentalNotFoundException {
-        return rentalMapper.mapToRentalDto(rentalService.extendRental(rentalExtensionDto));
+    public RentalComplexDto extendRental(RentalExtensionDto rentalExtensionDto) throws RentalNotFoundException {
+        return rentalMapper.mapToRentalComplexDto(rentalService.extendRental(rentalExtensionDto));
     }
 
     public void closeRental(Long id) throws RentalNotFoundException {

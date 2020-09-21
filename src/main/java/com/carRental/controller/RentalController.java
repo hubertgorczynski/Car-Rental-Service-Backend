@@ -1,5 +1,6 @@
 package com.carRental.controller;
 
+import com.carRental.domain.dto.RentalComplexDto;
 import com.carRental.domain.dto.RentalDto;
 import com.carRental.domain.dto.RentalExtensionDto;
 import com.carRental.exceptions.CarNotFoundException;
@@ -24,27 +25,27 @@ public class RentalController {
     }
 
     @GetMapping("/{id}")
-    public RentalDto getRentalById(@PathVariable Long id) throws RentalNotFoundException {
+    public RentalComplexDto getRentalById(@PathVariable Long id) throws RentalNotFoundException {
         return rentalFacade.getRentalById(id);
     }
 
     @GetMapping
-    public List<RentalDto> getAllRentals() {
+    public List<RentalComplexDto> getAllRentals() {
         return rentalFacade.getRentals();
     }
 
     @PostMapping
-    public RentalDto createRental(@RequestBody RentalDto rentalDto) throws CarNotFoundException, UserNotFoundException {
+    public RentalComplexDto createRental(@RequestBody RentalDto rentalDto) throws CarNotFoundException, UserNotFoundException {
         return rentalFacade.createRental(rentalDto);
     }
 
     @PutMapping
-    public RentalDto modifyRental(@RequestBody RentalDto rentalDto) throws CarNotFoundException, UserNotFoundException {
+    public RentalComplexDto modifyRental(@RequestBody RentalDto rentalDto) throws CarNotFoundException, UserNotFoundException {
         return rentalFacade.modifyRental(rentalDto);
     }
 
     @PutMapping("/extend_rental")
-    public RentalDto extendRental(@RequestBody RentalExtensionDto rentalExtensionDto) throws RentalNotFoundException {
+    public RentalComplexDto extendRental(@RequestBody RentalExtensionDto rentalExtensionDto) throws RentalNotFoundException {
         return rentalFacade.extendRental(rentalExtensionDto);
     }
 

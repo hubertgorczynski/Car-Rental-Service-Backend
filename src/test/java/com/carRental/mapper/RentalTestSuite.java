@@ -3,8 +3,7 @@ package com.carRental.mapper;
 import com.carRental.domain.Car;
 import com.carRental.domain.Rental;
 import com.carRental.domain.User;
-import com.carRental.domain.dto.RentalDto;
-import com.carRental.domain.dto.RentalEmailDto;
+import com.carRental.domain.dto.RentalComplexDto;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -51,81 +50,55 @@ public class RentalTestSuite {
             user,
             car);
 
-    RentalDto rentalDto = new RentalDto(
+    RentalComplexDto rentalComplexDto = new RentalComplexDto(
             1L,
             LocalDate.of(2020, 8, 20),
             LocalDate.of(2020, 8, 25),
-            car.getId(),
-            user.getId());
-
-    List<Rental> rentalList = Arrays.asList(rental);
+            new BigDecimal(125),
+            "Audi",
+            "A3",
+            "Jack",
+            "Smith",
+            "email",
+            123456);
 
     @Test
-    public void mapToRentalDtoTest() {
+    public void mapToRentalComplexDtoTest() {
         //Given
 
         //When
-        RentalDto mappedRentalDto = rentalMapper.mapToRentalDto(rental);
+        RentalComplexDto mappedRental = this.rentalMapper.mapToRentalComplexDto(rental);
 
         //Then
-        assertEquals(mappedRentalDto.getId(), rentalDto.getId());
-        assertEquals(mappedRentalDto.getRentedFrom(), rentalDto.getRentedFrom());
-        assertEquals(mappedRentalDto.getRentedTo(), rentalDto.getRentedTo());
-        assertEquals(mappedRentalDto.getCarId(), rentalDto.getCarId());
-        assertEquals(mappedRentalDto.getUserId(), rentalDto.getUserId());
+        assertEquals(mappedRental.getId(), rentalComplexDto.getId());
+        assertEquals(mappedRental.getRentedFrom(), rentalComplexDto.getRentedFrom());
+        assertEquals(mappedRental.getRentedTo(), rentalComplexDto.getRentedTo());
+        assertEquals(mappedRental.getRentalCost(), rentalComplexDto.getRentalCost());
+        assertEquals(mappedRental.getCarBrand(), rentalComplexDto.getCarBrand());
+        assertEquals(mappedRental.getUserName(), rentalComplexDto.getUserName());
+        assertEquals(mappedRental.getUserPhoneNumber(), rentalComplexDto.getUserPhoneNumber());
     }
 
     @Test
-    public void mapToRentalDtoListTest() {
+    public void mapToRentalComplexDtoListTest() {
         //Given
+        List<Rental> rentalList = Arrays.asList(rental);
 
         //When
-        List<RentalDto> mappedList = rentalMapper.mapToRentalDtoList(rentalList);
+        List<RentalComplexDto> mappedList = rentalMapper.mapToRentalComplexDtoList(rentalList);
 
         //Then
         assertNotNull(mappedList);
         assertEquals(1, mappedList.size());
 
         mappedList.forEach(r -> {
-            assertEquals(r.getId(), rentalDto.getId());
-            assertEquals(r.getRentedFrom(), rentalDto.getRentedFrom());
-            assertEquals(r.getRentedTo(), rentalDto.getRentedTo());
-            assertEquals(r.getCarId(), rentalDto.getCarId());
-            assertEquals(r.getUserId(), rentalDto.getUserId());
-        });
-    }
-
-    @Test
-    public void mapToRentalEmailDtoListTest() {
-        //Given
-
-        RentalEmailDto rentalEmailDto = new RentalEmailDto(
-                1L,
-                LocalDate.of(2020, 8, 20),
-                LocalDate.of(2020, 8, 25),
-                new BigDecimal(125),
-                "Audi",
-                "A3",
-                "Jack",
-                "Smith",
-                "email",
-                123456);
-
-        //When
-        List<RentalEmailDto> mappedList = rentalMapper.mapToRentalEmailDtoList(rentalList);
-
-        //Then
-        assertNotNull(mappedList);
-        assertEquals(1, mappedList.size());
-
-        mappedList.forEach(r -> {
-            assertEquals(r.getId(), rentalEmailDto.getId());
-            assertEquals(r.getRentedFrom(), rentalEmailDto.getRentedFrom());
-            assertEquals(r.getRentedTo(), rentalEmailDto.getRentedTo());
-            assertEquals(r.getRentalCost(), rentalEmailDto.getRentalCost());
-            assertEquals(r.getCarBrand(), rentalEmailDto.getCarBrand());
-            assertEquals(r.getUserName(), rentalEmailDto.getUserName());
-            assertEquals(r.getUserPhoneNumber(), rentalEmailDto.getUserPhoneNumber());
+            assertEquals(r.getId(), rentalComplexDto.getId());
+            assertEquals(r.getRentedFrom(), rentalComplexDto.getRentedFrom());
+            assertEquals(r.getRentedTo(), rentalComplexDto.getRentedTo());
+            assertEquals(r.getRentalCost(), rentalComplexDto.getRentalCost());
+            assertEquals(r.getCarBrand(), rentalComplexDto.getCarBrand());
+            assertEquals(r.getUserName(), rentalComplexDto.getUserName());
+            assertEquals(r.getUserPhoneNumber(), rentalComplexDto.getUserPhoneNumber());
         });
     }
 }
