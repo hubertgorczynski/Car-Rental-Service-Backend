@@ -2,7 +2,6 @@ package com.carRental.mapper;
 
 import com.carRental.domain.Car;
 import com.carRental.domain.Rental;
-import com.carRental.domain.Status;
 import com.carRental.domain.User;
 import com.carRental.domain.dto.RentalDto;
 import com.carRental.domain.dto.RentalEmailDto;
@@ -35,8 +34,7 @@ public class RentalTestSuite {
             3.0,
             "Saloon",
             250000,
-            new BigDecimal(25),
-            Status.AVAILABLE);
+            new BigDecimal(25));
 
     User user = new User(
             1L,
@@ -44,15 +42,12 @@ public class RentalTestSuite {
             "Smith",
             "email",
             "password",
-            123456,
-            LocalDate.now());
+            123456);
 
     Rental rental = new Rental(
             1L,
             LocalDate.of(2020, 8, 20),
             LocalDate.of(2020, 8, 25),
-            5L,
-            new BigDecimal(125),
             user,
             car);
 

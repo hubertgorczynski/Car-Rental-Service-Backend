@@ -12,6 +12,7 @@ public class CarMapper {
 
     public Car mapToCar(final CarDto carDto) {
         return new Car(
+                carDto.getId(),
                 carDto.getVin(),
                 carDto.getBrand(),
                 carDto.getModel(),

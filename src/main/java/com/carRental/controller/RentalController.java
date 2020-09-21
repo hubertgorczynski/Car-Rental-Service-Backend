@@ -46,14 +46,12 @@ public class RentalController {
     }
 
     @PutMapping("/extend_rental")
-    public RentalDto extendRental(@RequestBody RentalExtensionDto rentalExtensionDto) throws RentalNotFoundException,
-            CarNotFoundException, UserNotFoundException {
+    public RentalDto extendRental(@RequestBody RentalExtensionDto rentalExtensionDto) throws RentalNotFoundException {
         return rentalFacade.extendRental(rentalExtensionDto);
     }
 
     @DeleteMapping("/{id}")
-    public void closeRental(@PathVariable Long id) throws RentalNotFoundException, CarNotFoundException,
-            UserNotFoundException {
+    public void closeRental(@PathVariable Long id) throws RentalNotFoundException {
         rentalFacade.closeRental(id);
     }
 }

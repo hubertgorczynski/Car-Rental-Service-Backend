@@ -31,8 +31,7 @@ public class CarMapperTestSuite {
             3.0,
             "Saloon",
             250000,
-            new BigDecimal(25),
-            Status.AVAILABLE);
+            new BigDecimal(25));
 
     CarDto carDto = new CarDto(
             1L,
@@ -50,16 +49,6 @@ public class CarMapperTestSuite {
     @Test
     public void mapToCarTest() {
         //Given
-        Car car = new Car(
-                "sampleVin",
-                "Audi",
-                "A3",
-                2015,
-                "Diesel",
-                3.0,
-                "Saloon",
-                250000,
-                new BigDecimal(25));
 
         //When
         Car mappedCar = carMapper.mapToCar(carDto);

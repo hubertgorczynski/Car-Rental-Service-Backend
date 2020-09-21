@@ -41,13 +41,12 @@ public class RentalFacade {
         return rentalMapper.mapToRentalDto(rentalService.createRental(rentalDto));
     }
 
-    public RentalDto extendRental(RentalExtensionDto rentalExtensionDto) throws RentalNotFoundException,
-            CarNotFoundException, UserNotFoundException {
+    public RentalDto extendRental(RentalExtensionDto rentalExtensionDto) throws RentalNotFoundException {
         emailToUsersService.sendEmailAboutExtendingRental(rentalExtensionDto, "extended");
         return rentalMapper.mapToRentalDto(rentalService.extendRental(rentalExtensionDto));
     }
 
-    public void closeRental(Long id) throws RentalNotFoundException, CarNotFoundException, UserNotFoundException {
+    public void closeRental(Long id) throws RentalNotFoundException {
         emailToUsersService.sendEmailAboutClosingRental(id, "closed");
         rentalService.closeRental(id);
     }

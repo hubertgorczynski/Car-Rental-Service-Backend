@@ -50,6 +50,7 @@ public class RentalService {
         carRepository.save(car);
 
         Rental rental = new Rental(
+                rentalDto.getId(),
                 rentalDto.getRentedFrom(),
                 rentalDto.getRentedTo(),
                 user,
@@ -64,6 +65,7 @@ public class RentalService {
         LocalDate updateReturnDate = rental.getRentedTo().plusDays(rentalExtensionDto.getExtension());
 
         Rental updatedRental = new Rental(
+                rental.getId(),
                 rental.getRentedFrom(),
                 updateReturnDate,
                 rental.getUser(),

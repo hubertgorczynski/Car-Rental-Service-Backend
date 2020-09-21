@@ -55,23 +55,12 @@ public class User {
             mappedBy = "user")
     private List<Rental> rentals = new ArrayList<>();
 
-    public User(String name, String lastName, String email, String password, int phoneNumber) {
-        this.name = name;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
-        this.phoneNumber = phoneNumber;
-    }
-
-    //Constructor for testSuites only
-    public User(Long id, String name, String lastName, String email, String password, int phoneNumber,
-                LocalDate accountCreated) {
+    public User(Long id, String name, String lastName, String email, String password, int phoneNumber) {
         this.id = id;
         this.name = name;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.phoneNumber = phoneNumber;
-        this.accountCreated = accountCreated;
     }
 }

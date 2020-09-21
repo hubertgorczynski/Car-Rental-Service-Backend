@@ -26,8 +26,7 @@ public class UserMapperTestSuite {
             "Smith",
             "email",
             "password",
-            123456,
-            LocalDate.now());
+            123456);
 
     UserDto userDto = new UserDto(
             1L,
@@ -41,12 +40,6 @@ public class UserMapperTestSuite {
     @Test
     public void mapToUserTest() {
         //Given
-        User user = new User(
-                "Jack",
-                "Smith",
-                "email",
-                "password",
-                123456);
 
         //When
         User mappedUser = userMapper.mapToUser(userDto);
@@ -54,12 +47,17 @@ public class UserMapperTestSuite {
         //Then
         assertEquals(mappedUser.getId(), user.getId());
         assertEquals(mappedUser.getName(), user.getName());
+        assertEquals(mappedUser.getLastName(), user.getLastName());
+        assertEquals(mappedUser.getEmail(), user.getEmail());
+        assertEquals(mappedUser.getPassword(), user.getPassword());
+        assertEquals(mappedUser.getPhoneNumber(), user.getPhoneNumber());
         assertEquals(mappedUser.getAccountCreated(), user.getAccountCreated());
     }
 
     @Test
     public void mapToUserDtoTest() {
         //Given
+        user.setAccountCreated(LocalDate.now());
 
         //When
         UserDto mappedUserDto = userMapper.mapToUserDto(user);
@@ -67,12 +65,17 @@ public class UserMapperTestSuite {
         //Then
         assertEquals(mappedUserDto.getId(), userDto.getId());
         assertEquals(mappedUserDto.getName(), userDto.getName());
+        assertEquals(mappedUserDto.getLastName(), userDto.getLastName());
+        assertEquals(mappedUserDto.getEmail(), userDto.getEmail());
+        assertEquals(mappedUserDto.getPassword(), userDto.getPassword());
+        assertEquals(mappedUserDto.getPhoneNumber(), userDto.getPhoneNumber());
         assertEquals(mappedUserDto.getAccountCreated(), userDto.getAccountCreated());
     }
 
     @Test
     public void mapToUserDtoListTest() {
         //Given
+        user.setAccountCreated(LocalDate.now());
         List<User> userList = Arrays.asList(user);
 
         //When
@@ -85,6 +88,10 @@ public class UserMapperTestSuite {
         mappedUserDtoList.forEach(u -> {
             assertEquals(u.getId(), userDto.getId());
             assertEquals(u.getName(), userDto.getName());
+            assertEquals(u.getLastName(), userDto.getLastName());
+            assertEquals(u.getEmail(), userDto.getEmail());
+            assertEquals(u.getPassword(), userDto.getPassword());
+            assertEquals(u.getPhoneNumber(), userDto.getPhoneNumber());
             assertEquals(u.getPhoneNumber(), userDto.getPhoneNumber());
             assertEquals(u.getAccountCreated(), userDto.getAccountCreated());
         });

@@ -1,19 +1,13 @@
 package com.carRental.service.emailService;
 
 import com.carRental.config.AdminConfiguration;
-import com.carRental.domain.Car;
 import com.carRental.domain.Mail;
 import com.carRental.domain.Rental;
-import com.carRental.domain.User;
 import com.carRental.domain.dto.RentalDto;
 import com.carRental.domain.dto.RentalExtensionDto;
 import com.carRental.domain.dto.UserDto;
-import com.carRental.exceptions.CarNotFoundException;
 import com.carRental.exceptions.RentalNotFoundException;
-import com.carRental.exceptions.UserNotFoundException;
-import com.carRental.repository.CarRepository;
 import com.carRental.repository.RentalRepository;
-import com.carRental.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,8 +15,6 @@ import org.springframework.stereotype.Service;
 public class EmailToUsersService {
 
     private final EmailSenderService emailSenderService;
-    private final UserRepository userRepository;
-    private final CarRepository carRepository;
     private final RentalRepository rentalRepository;
     private final AdminConfiguration adminConfiguration;
     private static final String WELCOME_SUBJECT = "Welcome in our Car rental service!";
@@ -31,12 +23,9 @@ public class EmailToUsersService {
     private static final String CLOSE_RENTAL = "Rental has been closed!";
 
     @Autowired
-    public EmailToUsersService(EmailSenderService emailSenderService, UserRepository userRepository,
-                               CarRepository carRepository, RentalRepository rentalRepository,
+    public EmailToUsersService(EmailSenderService emailSenderService, RentalRepository rentalRepository,
                                AdminConfiguration adminConfiguration) {
         this.emailSenderService = emailSenderService;
-        this.userRepository = userRepository;
-        this.carRepository = carRepository;
         this.rentalRepository = rentalRepository;
         this.adminConfiguration = adminConfiguration;
     }
@@ -48,33 +37,28 @@ public class EmailToUsersService {
                 greetingsMessageCreate(userDto)));
     }
 
-    public void sendEmailAboutCreatingRental(RentalDto rentalDto, String subjectType) throws CarNotFoundException,
-            UserNotFoundException, RentalNotFoundException {
+    public void sendEmailAboutCreatingRental(RentalDto rentalDto, String subjectType) throws RentalNotFoundException {
         Rental rental = rentalRepository.findById(rentalDto.getId()).orElseThrow(RentalNotFoundException::new);
         sendEmailAboutRental(rental, subjectType);
     }
 
     public void sendEmailAboutExtendingRental(RentalExtensionDto rentalExtensionDto, String subjectType) throws
-            RentalNotFoundException, UserNotFoundException, CarNotFoundException {
+            RentalNotFoundException {
         Rental rental = rentalRepository.findById(rentalExtensionDto.getRentalId()).orElseThrow(RentalNotFoundException::new);
         sendEmailAboutRental(rental, subjectType);
     }
 
-    public void sendEmailAboutClosingRental(Long rentalId, String subjectType) throws RentalNotFoundException,
-            UserNotFoundException, CarNotFoundException {
+    public void sendEmailAboutClosingRental(Long rentalId, String subjectType) throws RentalNotFoundException {
         Rental rental = rentalRepository.findById(rentalId).orElseThrow(RentalNotFoundException::new);
         sendEmailAboutRental(rental, subjectType);
     }
 
-    private void sendEmailAboutRental(Rental rental, String subjectType) throws UserNotFoundException, CarNotFoundException {
-        User user = userRepository.findById(rental.getUser().getId()).orElseThrow(UserNotFoundException::new);
-        Car car = carRepository.findById(rental.getCar().getId()).orElseThrow(CarNotFoundException::new);
-
+    private void sendEmailAboutRental(Rental rental, String subjectType) {
         emailSenderService.sendMail(new Mail(
-                user.getEmail(),
+                rental.getUser().getEmail(),
                 adminConfiguration.getAdminMail(),
                 verifyEmailSubject(subjectType),
-                rentalMessageCreate(rental, user, car, subjectType)));
+                rentalMessageCreate(rental, subjectType)));
     }
 
     private String verifyEmailSubject(String subjectType) {
@@ -94,15 +78,15 @@ public class EmailToUsersService {
         return subject;
     }
 
-    private String rentalMessageCreate(Rental rental, User user, Car car, String messageType) {
-        return ("\n Hello " + user.getName() + " !" +
+    private String rentalMessageCreate(Rental rental, String messageType) {
+        return ("\n Hello " + rental.getUser().getName() + " !" +
                 "\n Your rental has been " + messageType + ". Rental details: \n" +
                 "\n\t Id: " + rental.getId() +
                 "\n\t Rental starts: " + rental.getRentedFrom() +
                 "\n\t Rental ends: " + rental.getRentedTo() +
                 "\n\t Duration: " + rental.getDuration() +
                 "\n\t Cost : " + rental.getCost() +
-                "\n\t Car rented: " + car.getBrand() + " - " + car.getModel() + "\n" +
+                "\n\t Car rented: " + rental.getCar().getBrand() + " - " + rental.getCar().getModel() + "\n" +
                 "\n Have a nice day!");
     }
 
