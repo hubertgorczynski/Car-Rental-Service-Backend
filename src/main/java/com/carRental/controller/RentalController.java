@@ -34,14 +34,12 @@ public class RentalController {
     }
 
     @PostMapping
-    public RentalDto createRental(@RequestBody RentalDto rentalDto) throws CarNotFoundException, UserNotFoundException,
-            RentalNotFoundException {
+    public RentalDto createRental(@RequestBody RentalDto rentalDto) throws CarNotFoundException, UserNotFoundException {
         return rentalFacade.createRental(rentalDto);
     }
 
     @PutMapping
-    public RentalDto modifyRental(@RequestBody RentalDto rentalDto) throws CarNotFoundException, UserNotFoundException,
-            RentalNotFoundException {
+    public RentalDto modifyRental(@RequestBody RentalDto rentalDto) throws CarNotFoundException, UserNotFoundException {
         return rentalFacade.createRental(rentalDto);
     }
 

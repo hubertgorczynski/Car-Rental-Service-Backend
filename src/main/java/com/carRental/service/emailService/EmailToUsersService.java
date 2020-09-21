@@ -3,11 +3,7 @@ package com.carRental.service.emailService;
 import com.carRental.config.AdminConfiguration;
 import com.carRental.domain.Mail;
 import com.carRental.domain.Rental;
-import com.carRental.domain.dto.RentalDto;
-import com.carRental.domain.dto.RentalExtensionDto;
-import com.carRental.domain.dto.UserDto;
-import com.carRental.exceptions.RentalNotFoundException;
-import com.carRental.repository.RentalRepository;
+import com.carRental.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,45 +11,26 @@ import org.springframework.stereotype.Service;
 public class EmailToUsersService {
 
     private final EmailSenderService emailSenderService;
-    private final RentalRepository rentalRepository;
     private final AdminConfiguration adminConfiguration;
-    private static final String WELCOME_SUBJECT = "Welcome in our Car rental service!";
+    private static final String WELCOME_SUBJECT = "New account created!!";
     private static final String CREATE_RENTAL = "New rental registered!";
     private static final String EXTEND_RENTAL = "Rental extended!";
     private static final String CLOSE_RENTAL = "Rental has been closed!";
 
     @Autowired
-    public EmailToUsersService(EmailSenderService emailSenderService, RentalRepository rentalRepository,
-                               AdminConfiguration adminConfiguration) {
+    public EmailToUsersService(EmailSenderService emailSenderService, AdminConfiguration adminConfiguration) {
         this.emailSenderService = emailSenderService;
-        this.rentalRepository = rentalRepository;
         this.adminConfiguration = adminConfiguration;
     }
 
-    public void sendEmailAboutCreatingUser(UserDto userDto) {
+    public void sendEmailAboutCreatingUser(User user) {
         emailSenderService.sendMail(new Mail(
-                userDto.getEmail(),
+                user.getEmail(),
                 WELCOME_SUBJECT,
-                greetingsMessageCreate(userDto)));
+                greetingsMessageCreate(user)));
     }
 
-    public void sendEmailAboutCreatingRental(RentalDto rentalDto, String subjectType) throws RentalNotFoundException {
-        Rental rental = rentalRepository.findById(rentalDto.getId()).orElseThrow(RentalNotFoundException::new);
-        sendEmailAboutRental(rental, subjectType);
-    }
-
-    public void sendEmailAboutExtendingRental(RentalExtensionDto rentalExtensionDto, String subjectType) throws
-            RentalNotFoundException {
-        Rental rental = rentalRepository.findById(rentalExtensionDto.getRentalId()).orElseThrow(RentalNotFoundException::new);
-        sendEmailAboutRental(rental, subjectType);
-    }
-
-    public void sendEmailAboutClosingRental(Long rentalId, String subjectType) throws RentalNotFoundException {
-        Rental rental = rentalRepository.findById(rentalId).orElseThrow(RentalNotFoundException::new);
-        sendEmailAboutRental(rental, subjectType);
-    }
-
-    private void sendEmailAboutRental(Rental rental, String subjectType) {
+    public void sendEmailAboutRental(Rental rental, String subjectType) {
         emailSenderService.sendMail(new Mail(
                 rental.getUser().getEmail(),
                 adminConfiguration.getAdminMail(),
@@ -87,13 +64,15 @@ public class EmailToUsersService {
                 "\n\t Duration: " + rental.getDuration() +
                 "\n\t Cost : " + rental.getCost() +
                 "\n\t Car rented: " + rental.getCar().getBrand() + " - " + rental.getCar().getModel() + "\n" +
-                "\n Have a nice day!");
+                "\n Have a nice day!" +
+                "\n //Car Rental service//");
     }
 
-    private String greetingsMessageCreate(UserDto userDto) {
-        return ("\n Hello " + userDto.getName() + " !" +
+    private String greetingsMessageCreate(User user) {
+        return ("\n Hello " + user.getName() + " !" +
                 "\n Your account has been created. We encourage You to check out cars on our website. \n" +
                 "\n If You have any questions don't hesitate to contact us. \n" +
-                "\n Have a nice day!");
+                "\n Have a nice day!" +
+                "\n //Car Rental service//");
     }
 }

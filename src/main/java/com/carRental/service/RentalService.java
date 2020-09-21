@@ -12,6 +12,7 @@ import com.carRental.exceptions.UserNotFoundException;
 import com.carRental.repository.CarRepository;
 import com.carRental.repository.RentalRepository;
 import com.carRental.repository.UserRepository;
+import com.carRental.service.emailService.EmailToUsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,12 +27,15 @@ public class RentalService {
     private final RentalRepository rentalRepository;
     private final UserRepository userRepository;
     private final CarRepository carRepository;
+    private final EmailToUsersService emailToUsersService;
 
     @Autowired
-    public RentalService(RentalRepository rentalRepository, UserRepository userRepository, CarRepository carRepository) {
+    public RentalService(RentalRepository rentalRepository, UserRepository userRepository, CarRepository carRepository,
+                         EmailToUsersService emailToUsersService) {
         this.rentalRepository = rentalRepository;
         this.userRepository = userRepository;
         this.carRepository = carRepository;
+        this.emailToUsersService = emailToUsersService;
     }
 
     public Rental getRentalById(Long id) throws RentalNotFoundException {
@@ -55,6 +59,7 @@ public class RentalService {
                 user,
                 car);
 
+        emailToUsersService.sendEmailAboutRental(rental, "created");
         return rentalRepository.save(rental);
     }
 
@@ -63,21 +68,31 @@ public class RentalService {
 
         LocalDate updateReturnDate = rental.getRentedTo().plusDays(rentalExtensionDto.getExtension());
 
-        Rental updatedRental = new Rental(
+        Rental extendedRental = new Rental(
                 rental.getRentedFrom(),
                 updateReturnDate,
                 rental.getUser(),
                 rental.getCar());
+        emailToUsersService.sendEmailAboutRental(extendedRental, "extended");
 
-        return rentalRepository.save(updatedRental);
+        return rentalRepository.save(extendedRental);
     }
 
     public void closeRental(Long id) throws RentalNotFoundException {
         Rental rental = rentalRepository.findById(id).orElseThrow(RentalNotFoundException::new);
+        Car car = rental.getCar();
+        User user = rental.getUser();
 
-        rental.getUser().getRentals().remove(rental);
-        rental.getCar().getRentals().remove(rental);
-        rental.getCar().setStatus(Status.AVAILABLE);
+        Rental closedRental = new Rental(
+                rental.getRentedFrom(),
+                LocalDate.now(),
+                user,
+                car);
+        emailToUsersService.sendEmailAboutRental(closedRental, "closed");
+
+        user.getRentals().remove(rental);
+        car.getRentals().remove(rental);
+        car.setStatus(Status.AVAILABLE);
 
         rentalRepository.deleteById(id);
     }
