@@ -36,6 +36,10 @@ public class RentalFacade {
         return rentalMapper.mapToRentalDto(rentalService.createRental(rentalDto));
     }
 
+    public RentalDto modifyRental(RentalDto rentalDto) throws UserNotFoundException, CarNotFoundException {
+        return rentalMapper.mapToRentalDto(rentalService.modifyRental(rentalDto));
+    }
+
     public RentalDto extendRental(RentalExtensionDto rentalExtensionDto) throws RentalNotFoundException {
         return rentalMapper.mapToRentalDto(rentalService.extendRental(rentalExtensionDto));
     }

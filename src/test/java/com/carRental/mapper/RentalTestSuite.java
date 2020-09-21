@@ -45,6 +45,7 @@ public class RentalTestSuite {
             123456);
 
     Rental rental = new Rental(
+            1L,
             LocalDate.of(2020, 8, 20),
             LocalDate.of(2020, 8, 25),
             user,
@@ -62,7 +63,6 @@ public class RentalTestSuite {
     @Test
     public void mapToRentalDtoTest() {
         //Given
-        rental.setId(1L);
 
         //When
         RentalDto mappedRentalDto = rentalMapper.mapToRentalDto(rental);
@@ -78,7 +78,6 @@ public class RentalTestSuite {
     @Test
     public void mapToRentalDtoListTest() {
         //Given
-        rentalList.get(0).setId(1L);
 
         //When
         List<RentalDto> mappedList = rentalMapper.mapToRentalDtoList(rentalList);
@@ -99,7 +98,6 @@ public class RentalTestSuite {
     @Test
     public void mapToRentalEmailDtoListTest() {
         //Given
-        rentalList.get(0).setId(1L);
 
         RentalEmailDto rentalEmailDto = new RentalEmailDto(
                 1L,

@@ -14,6 +14,7 @@ public class EmailToUsersService {
     private final AdminConfiguration adminConfiguration;
     private static final String WELCOME_SUBJECT = "New account created!!";
     private static final String CREATE_RENTAL = "New rental registered!";
+    private static final String MODIFIED_RENTAL = "Rental has been modified!";
     private static final String EXTEND_RENTAL = "Rental extended!";
     private static final String CLOSE_RENTAL = "Rental has been closed!";
 
@@ -50,6 +51,9 @@ public class EmailToUsersService {
                 break;
             case "closed":
                 subject = CLOSE_RENTAL;
+                break;
+            case "modified":
+                subject = MODIFIED_RENTAL;
                 break;
         }
         return subject;

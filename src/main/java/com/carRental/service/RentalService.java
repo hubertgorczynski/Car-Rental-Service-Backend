@@ -54,6 +54,7 @@ public class RentalService {
         carRepository.save(car);
 
         Rental rental = new Rental(
+                rentalDto.getId(),
                 rentalDto.getRentedFrom(),
                 rentalDto.getRentedTo(),
                 user,
@@ -63,18 +64,34 @@ public class RentalService {
         return rentalRepository.save(rental);
     }
 
+    public Rental modifyRental(RentalDto rentalDto) throws UserNotFoundException, CarNotFoundException {
+        User user = userRepository.findById(rentalDto.getUserId()).orElseThrow(UserNotFoundException::new);
+        Car car = carRepository.findById(rentalDto.getCarId()).orElseThrow(CarNotFoundException::new);
+
+        Rental modifiedRental = new Rental(
+                rentalDto.getId(),
+                rentalDto.getRentedFrom(),
+                rentalDto.getRentedTo(),
+                user,
+                car);
+
+        emailToUsersService.sendEmailAboutRental(modifiedRental, "modified");
+        return rentalRepository.save(modifiedRental);
+    }
+
     public Rental extendRental(RentalExtensionDto rentalExtensionDto) throws RentalNotFoundException {
         Rental rental = rentalRepository.findById(rentalExtensionDto.getRentalId()).orElseThrow(RentalNotFoundException::new);
 
         LocalDate updateReturnDate = rental.getRentedTo().plusDays(rentalExtensionDto.getExtension());
 
         Rental extendedRental = new Rental(
+                rentalExtensionDto.getRentalId(),
                 rental.getRentedFrom(),
                 updateReturnDate,
                 rental.getUser(),
                 rental.getCar());
-        emailToUsersService.sendEmailAboutRental(extendedRental, "extended");
 
+        emailToUsersService.sendEmailAboutRental(extendedRental, "extended");
         return rentalRepository.save(extendedRental);
     }
 
@@ -84,6 +101,7 @@ public class RentalService {
         User user = rental.getUser();
 
         Rental closedRental = new Rental(
+                id,
                 rental.getRentedFrom(),
                 LocalDate.now(),
                 user,
