@@ -5,5 +5,5 @@ import org.springframework.stereotype.Service;
 @Service
 public interface EmailBodyService {
 
-    public String emailBodyCreate();
+    String emailBodyCreate();
 }
