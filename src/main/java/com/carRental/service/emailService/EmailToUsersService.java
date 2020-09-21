@@ -15,7 +15,7 @@ public class EmailToUsersService {
     private static final String WELCOME_SUBJECT = "New account created!!";
     private static final String CREATE_RENTAL = "New rental registered!";
     private static final String MODIFIED_RENTAL = "Rental has been modified!";
-    private static final String EXTEND_RENTAL = "Rental extended!";
+    private static final String EXTEND_RENTAL = "Rental has been extended!";
     private static final String CLOSE_RENTAL = "Rental has been closed!";
 
     @Autowired

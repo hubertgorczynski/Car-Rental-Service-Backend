@@ -42,12 +42,12 @@ public class Rental {
     private BigDecimal cost;
 
     @NotNull
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "USER_ID")
     private User user;
 
     @NotNull
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "CAR_ID")
     private Car car;
 
