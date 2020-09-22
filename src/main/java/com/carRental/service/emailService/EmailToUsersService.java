@@ -65,8 +65,8 @@ public class EmailToUsersService {
                 "\n\t Id: " + rental.getId() +
                 "\n\t Rental starts: " + rental.getRentedFrom() +
                 "\n\t Rental ends: " + rental.getRentedTo() +
-                "\n\t Duration: " + rental.getDuration() +
-                "\n\t Cost : " + rental.getCost() +
+                "\n\t Duration: " + rental.getDuration() + " days" +
+                "\n\t Cost : " + rental.getCost() + " $" +
                 "\n\t Car rented: " + rental.getCar().getBrand() + " - " + rental.getCar().getModel() + "\n" +
                 "\n Have a nice day!" +
                 "\n //Car Rental service//");

@@ -22,7 +22,7 @@ public class Car {
     private Long id;
 
     @NotNull
-    @Column(name = "VIN")
+    @Column(name = "VIN", unique = true)
     private String vin;
 
     @NotNull
