@@ -51,8 +51,7 @@ public class Rental {
     @JoinColumn(name = "CAR_ID")
     private Car car;
 
-    public Rental(Long id, LocalDate rentedFrom, LocalDate rentedTo, User user, Car car) {
-        this.id = id;
+    public Rental(LocalDate rentedFrom, LocalDate rentedTo, User user, Car car) {
         this.rentedFrom = rentedFrom;
         this.rentedTo = rentedTo;
         this.user = user;

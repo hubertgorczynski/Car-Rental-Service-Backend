@@ -44,7 +44,6 @@ public class RentalTestSuite {
             123456);
 
     Rental rental = new Rental(
-            1L,
             LocalDate.of(2020, 8, 20),
             LocalDate.of(2020, 8, 25),
             user,
@@ -65,6 +64,7 @@ public class RentalTestSuite {
     @Test
     public void mapToRentalComplexDtoTest() {
         //Given
+        rental.setId(1L);
 
         //When
         RentalComplexDto mappedRental = this.rentalMapper.mapToRentalComplexDto(rental);
@@ -82,6 +82,7 @@ public class RentalTestSuite {
     @Test
     public void mapToRentalComplexDtoListTest() {
         //Given
+        rental.setId(1L);
         List<Rental> rentalList = Arrays.asList(rental);
 
         //When

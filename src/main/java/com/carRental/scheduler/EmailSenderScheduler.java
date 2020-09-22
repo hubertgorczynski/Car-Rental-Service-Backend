@@ -20,8 +20,8 @@ public class EmailSenderScheduler {
         this.emailBodyService = emailBodyService;
     }
 
-    @Scheduled(cron = "*/30 * * * * *")
-    //@Scheduled(cron = "0 0 6 * * *")
+    //@Scheduled(cron = "*/30 * * * * *")
+    @Scheduled(cron = "0 0 6 * * *")
     public void sendDailyEmail() {
         emailSenderService.sendMail(new Mail(
                 adminConfiguration.getAdminMail(),

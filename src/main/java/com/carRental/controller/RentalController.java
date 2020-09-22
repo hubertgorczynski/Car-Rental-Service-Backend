@@ -40,7 +40,8 @@ public class RentalController {
     }
 
     @PutMapping
-    public RentalComplexDto modifyRental(@RequestBody RentalDto rentalDto) throws CarNotFoundException, UserNotFoundException {
+    public RentalComplexDto modifyRental(@RequestBody RentalDto rentalDto) throws CarNotFoundException, UserNotFoundException,
+            RentalNotFoundException {
         return rentalFacade.modifyRental(rentalDto);
     }
 

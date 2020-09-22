@@ -37,7 +37,8 @@ public class RentalFacade {
         return rentalMapper.mapToRentalComplexDto(rentalService.createRental(rentalDto));
     }
 
-    public RentalComplexDto modifyRental(RentalDto rentalDto) throws UserNotFoundException, CarNotFoundException {
+    public RentalComplexDto modifyRental(RentalDto rentalDto) throws UserNotFoundException, CarNotFoundException,
+            RentalNotFoundException {
         return rentalMapper.mapToRentalComplexDto(rentalService.modifyRental(rentalDto));
     }
 
