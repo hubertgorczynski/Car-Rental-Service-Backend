@@ -28,25 +28,26 @@ public class ReminderEmailBodyService implements EmailBodyService {
         long rentalRepositorySize = rentalRepository.count();
         LocalDate today = LocalDate.now();
 
-        List<Rental> closingDelayedRentalList = rentalRepository.findAllByRentedToAfter(today);
+        List<Rental> closingDelayedRentalList = rentalRepository.findAllByRentedToBefore(today);
         List<Rental> closingSoonRentalList = rentalRepository.findAllByRentedToBefore(today.plusDays(3));
 
         List<RentalComplexDto> closingDelayedRentalDtoList = rentalMapper.mapToRentalComplexDtoList(closingDelayedRentalList);
         List<RentalComplexDto> closingSoonRentalDtoList = rentalMapper.mapToRentalComplexDtoList(closingSoonRentalList);
 
-        return ("\n Dear car rental administrator." +
-                "\n\t Below You can find daily reminder for currents rentals: \n" +
-                "\n\t List of already delayed rentals: \n" +
+        return ("\n Dear Car Rental Administrator." +
+                "\n\t Below You can find daily reminder for currents rentals: " +
+                "\n\n\t List of already delayed rentals: \n" +
                 streamRentalListToString(closingDelayedRentalDtoList) +
                 "\n\t List of soon closing rentals: \n" +
                 streamRentalListToString(closingSoonRentalDtoList) +
                 "\n\t Current number of all rentals: " + rentalRepositorySize + "\n" +
-                "\n Have a nice day!");
+                "\n Have a nice day!" +
+                "\n //Car Rental service//");
     }
 
     private String streamRentalListToString(List<RentalComplexDto> rentalComplexDtoList) {
         return rentalComplexDtoList.stream()
                 .map(RentalComplexDto::toString)
-                .collect(Collectors.joining(",\n", "<<", ">>"));
+                .collect(Collectors.joining(". \n\n\t", "\n <<", ">> \n"));
     }
 }
