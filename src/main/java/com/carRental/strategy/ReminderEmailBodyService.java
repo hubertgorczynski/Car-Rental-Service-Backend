@@ -29,7 +29,7 @@ public class ReminderEmailBodyService implements EmailBodyService {
         LocalDate today = LocalDate.now();
 
         List<Rental> closingDelayedRentalList = rentalRepository.findAllByRentedToBefore(today);
-        List<Rental> closingSoonRentalList = rentalRepository.findAllByRentedToBefore(today.plusDays(3));
+        List<Rental> closingSoonRentalList = rentalRepository.findAllByRentedToBetween(today, today.plusDays(3));
 
         List<RentalComplexDto> closingDelayedRentalDtoList = rentalMapper.mapToRentalComplexDtoList(closingDelayedRentalList);
         List<RentalComplexDto> closingSoonRentalDtoList = rentalMapper.mapToRentalComplexDtoList(closingSoonRentalList);

@@ -13,7 +13,7 @@ public interface RentalRepository extends CrudRepository<Rental, Long> {
     @Override
     List<Rental> findAll();
 
-    List<Rental> findAllByRentedToAfter(LocalDate date);
+    List<Rental> findAllByRentedToBetween(LocalDate startDate, LocalDate endDate);
 
     List<Rental> findAllByRentedToBefore(LocalDate date);
 }
