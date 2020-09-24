@@ -13,6 +13,7 @@ import com.carRental.repository.CarRepository;
 import com.carRental.repository.RentalRepository;
 import com.carRental.repository.UserRepository;
 import com.carRental.service.emailService.EmailToUsersService;
+import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -109,7 +110,11 @@ public class RentalService {
     }
 
     private void updateDuration(Rental rental){
-        rental.setDuration(DAYS.between(rental.getRentedFrom(),rental.getRentedTo()));
+        if(rental.getRentedTo().isAfter(rental.getRentedFrom())) {
+            rental.setDuration(DAYS.between(rental.getRentedFrom(),rental.getRentedTo()));
+        } else {
+            rental.setDuration(0L);
+        }
     }
 
     private void updateCost(Rental rental){
