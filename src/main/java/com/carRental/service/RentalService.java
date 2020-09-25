@@ -13,7 +13,6 @@ import com.carRental.repository.CarRepository;
 import com.carRental.repository.RentalRepository;
 import com.carRental.repository.UserRepository;
 import com.carRental.service.emailService.EmailToUsersService;
-import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -61,9 +60,9 @@ public class RentalService {
                 user,
                 car);
 
-        rental = rentalRepository.save(rental);
-        emailToUsersService.sendEmailAboutRental(rental, "created");
-        return rental;
+        Rental savedRental = rentalRepository.save(rental);
+        emailToUsersService.sendEmailAboutRental(savedRental, "created");
+        return savedRental;
     }
 
     public Rental modifyRental(RentalDto rentalDto) throws UserNotFoundException, CarNotFoundException, RentalNotFoundException {
@@ -109,15 +108,15 @@ public class RentalService {
         rentalRepository.deleteById(id);
     }
 
-    private void updateDuration(Rental rental){
-        if(rental.getRentedTo().isAfter(rental.getRentedFrom())) {
-            rental.setDuration(DAYS.between(rental.getRentedFrom(),rental.getRentedTo()));
+    private void updateDuration(Rental rental) {
+        if (rental.getRentedTo().isAfter(rental.getRentedFrom())) {
+            rental.setDuration(DAYS.between(rental.getRentedFrom(), rental.getRentedTo()));
         } else {
             rental.setDuration(0L);
         }
     }
 
-    private void updateCost(Rental rental){
+    private void updateCost(Rental rental) {
         BigDecimal updatedCost = rental.getCar().getCostPerDay().multiply(new BigDecimal(rental.getDuration()));
         rental.setCost(updatedCost);
     }

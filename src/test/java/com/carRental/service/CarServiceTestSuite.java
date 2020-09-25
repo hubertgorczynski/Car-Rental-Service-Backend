@@ -134,7 +134,6 @@ public class CarServiceTestSuite {
     public void getCarsByFuelTypeTest() {
         //Given
         List<Car> carByFuelTypeList = Arrays.asList(car1, car2);
-
         when(carRepository.findAllByFuelType("Diesel")).thenReturn(carByFuelTypeList);
 
         //When
@@ -151,7 +150,6 @@ public class CarServiceTestSuite {
     public void getCarsByBodyClassTypeTest() {
         //Given
         List<Car> carByBodyClassList = Arrays.asList(car1, car2);
-
         when(carRepository.findAllByBodyClass("Saloon")).thenReturn(carByBodyClassList);
 
         //When
@@ -168,7 +166,6 @@ public class CarServiceTestSuite {
     public void getCarsByCostPerDayLessThenTest() {
         //Given
         List<Car> carByCostList = Arrays.asList(car1, car3);
-
         when(carRepository.findAllByCostPerDayLessThan(new BigDecimal(20))).thenReturn(carByCostList);
 
         //When
@@ -185,7 +182,6 @@ public class CarServiceTestSuite {
     public void getCarsByMileageLessThenTest() {
         //Given
         List<Car> carByMileageList = Arrays.asList(car1, car3);
-
         when(carRepository.findAllByMileageLessThan(200000)).thenReturn(carByMileageList);
 
         //When
@@ -201,7 +197,6 @@ public class CarServiceTestSuite {
     @Test
     public void deleteCarTest() {
         //Given
-
         //When
         carService.deleteCar(2L);
 

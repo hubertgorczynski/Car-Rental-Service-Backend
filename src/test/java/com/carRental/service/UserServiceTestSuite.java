@@ -55,7 +55,7 @@ public class UserServiceTestSuite {
     }
 
     @Test
-    public void getCarByIdTest() throws UserNotFoundException {
+    public void getUserByIdTest() throws UserNotFoundException {
         //Given
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
 
@@ -67,7 +67,7 @@ public class UserServiceTestSuite {
     }
 
     @Test
-    public void getCarByEmailTest() throws UserNotFoundException {
+    public void getUserByEmailTest() throws UserNotFoundException {
         //Given
         when(userRepository.findByEmail("email")).thenReturn(Optional.of(user));
 
@@ -107,12 +107,10 @@ public class UserServiceTestSuite {
     @Test
     public void deleteUserTest() {
         //Given
-
         //When
         userService.deleteUser(2L);
 
         //Then
         verify(userRepository, times(1)).deleteById(2L);
     }
-
 }
