@@ -3,7 +3,7 @@ package com.carRental.service;
 import com.carRental.domain.User;
 import com.carRental.exceptions.UserNotFoundException;
 import com.carRental.repository.UserRepository;
-import com.carRental.service.emailService.EmailToUsersService;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -27,9 +27,6 @@ public class UserServiceTestSuite {
     @Mock
     private UserRepository userRepository;
 
-    @Mock
-    private EmailToUsersService emailToUsersService;
-
     User user = new User(
             1L,
             "Jack",
@@ -42,7 +39,6 @@ public class UserServiceTestSuite {
     public void saveUserTest() {
         //Given
         when(userRepository.save(user)).thenReturn(user);
-        doNothing().when(emailToUsersService).sendEmailAboutCreatingUser(user);
 
         //When
         User result = userService.saveUser(user);
@@ -51,7 +47,6 @@ public class UserServiceTestSuite {
         assertEquals(user.getId(), result.getId());
         assertEquals(user.getName(), result.getName());
         assertEquals(user.getPhoneNumber(), result.getPhoneNumber());
-        verify(emailToUsersService, times(1)).sendEmailAboutCreatingUser(user);
     }
 
     @Test

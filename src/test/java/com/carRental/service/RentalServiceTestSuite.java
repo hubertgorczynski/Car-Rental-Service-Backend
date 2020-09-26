@@ -2,7 +2,6 @@ package com.carRental.service;
 
 import com.carRental.domain.Car;
 import com.carRental.domain.Rental;
-import com.carRental.domain.Status;
 import com.carRental.domain.User;
 import com.carRental.domain.dto.RentalDto;
 import com.carRental.domain.dto.RentalExtensionDto;
@@ -12,7 +11,6 @@ import com.carRental.exceptions.UserNotFoundException;
 import com.carRental.repository.CarRepository;
 import com.carRental.repository.RentalRepository;
 import com.carRental.repository.UserRepository;
-import com.carRental.service.emailService.EmailToUsersService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -40,9 +38,6 @@ public class RentalServiceTestSuite {
 
     @Mock
     private CarRepository carRepository;
-
-    @Mock
-    private EmailToUsersService emailToUsersService;
 
     User user = new User(
             1L,
@@ -83,7 +78,6 @@ public class RentalServiceTestSuite {
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
         when(carRepository.findById(1L)).thenReturn(Optional.of(car));
         when(rentalRepository.findById(1L)).thenReturn(Optional.of(rental));
-        doNothing().when(emailToUsersService).sendEmailAboutRental(rental, "modified");
 
         //When
         Rental modifiedRental = rentalService.modifyRental(rentalDto);
@@ -93,16 +87,13 @@ public class RentalServiceTestSuite {
         assertEquals(rentalDto.getCarId(), modifiedRental.getCar().getId());
         assertEquals(rentalDto.getRentedFrom(), modifiedRental.getRentedFrom());
         assertEquals(rentalDto.getRentedTo(), modifiedRental.getRentedTo());
-        verify(emailToUsersService, times(1)).sendEmailAboutRental(rental, "modified");
     }
 
     @Test
     public void extendRentalTest() throws RentalNotFoundException {
         //Given
         RentalExtensionDto rentalExtensionDto = new RentalExtensionDto(1L, 5L);
-
         when(rentalRepository.findById(1L)).thenReturn(Optional.of(rental));
-        doNothing().when(emailToUsersService).sendEmailAboutRental(rental, "extended");
 
         //When
         Rental extendedRental = rentalService.extendRental(rentalExtensionDto);
@@ -110,21 +101,43 @@ public class RentalServiceTestSuite {
         //Then
         assertEquals(extendedRental.getRentedFrom(), LocalDate.of(2020, 10, 10));
         assertEquals(extendedRental.getRentedTo(), LocalDate.of(2020, 10, 20));
-        verify(emailToUsersService, times(1)).sendEmailAboutRental(rental, "extended");
     }
 
     @Test
     public void closeRentalTest() throws RentalNotFoundException {
         //Given
         when(rentalRepository.findById(1L)).thenReturn(Optional.of(rental));
-        doNothing().when(emailToUsersService).sendEmailAboutRental(rental, "closed");
 
         //When
         rentalService.closeRental(1L);
 
         //Then
-        assertEquals(LocalDate.now(), rental.getRentedTo());
         verify(rentalRepository, times(1)).deleteById(1L);
-        verify(emailToUsersService, times(1)).sendEmailAboutRental(rental, "closed");
+    }
+
+    @Test
+    public void updateDurationTest() {
+        //Given
+        rental.setRentedTo(LocalDate.of(2020, 10, 28));
+
+        //When
+        rentalService.updateDuration(rental);
+
+        //Then
+        assertEquals(18L, (long) rental.getDuration());
+    }
+
+    @Test
+    public void updateCOstTest() {
+        //Given
+        rental.setDuration(10L);
+
+        //WHen
+        rentalService.updateCost(rental);
+
+        //Then
+        assertEquals(new BigDecimal(180), rental.getCost());
     }
 }
+
+
