@@ -74,8 +74,15 @@ public class EmailToUsersService {
 
     private String greetingsMessageCreate(User user) {
         return ("\n Hello " + user.getName() + " !" +
-                "\n Your account has been created. We encourage You to check out cars on our website. \n" +
-                "\n If You have any questions don't hesitate to contact us. \n" +
+                "\n Your account has been created. Please verify if Your data are correct: " + "\n" +
+                "\n\t Id:" + user.getId() +
+                "\n\t Name" + user.getName() +
+                "\n\t Lastname:" + user.getLastName() +
+                "\n\t Phone number:" + user.getPhoneNumber() +
+                "\n\t Email(login):" + user.getEmail() +
+                "\n\t Password:" + user.getPassword() + "\n" +
+                "\n We encourage You to check out cars on our website. If You have any questions don't hesitate to" +
+                " contact us. \n" +
                 "\n Have a nice day!" +
                 "\n //Car Rental service//");
     }
