@@ -24,7 +24,7 @@ public class HereApiController {
     }
 
     @GetMapping("check_coordinates_by_postal_code/{postalCode}")
-    public GeocodeDto get(@PathVariable String postalCode) {
+    public GeocodeDto getCoordinates(@PathVariable String postalCode) {
         return hereApiService.locateGeocode(postalCode);
     }
 }
