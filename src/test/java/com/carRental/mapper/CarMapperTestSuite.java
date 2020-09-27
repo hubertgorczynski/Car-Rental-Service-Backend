@@ -9,7 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -77,7 +77,7 @@ public class CarMapperTestSuite {
     @Test
     public void mapToCarDtoList() {
         //Given
-        List<Car> carList = Arrays.asList(car);
+        List<Car> carList = Collections.singletonList(car);
 
         //When
         List<CarDto> mappedCarDtoList = carMapper.mapToCarDtoList(carList);

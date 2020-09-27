@@ -74,7 +74,7 @@ public class UserFacade {
         userService.deleteUser(id);
     }
 
-    private boolean isEmailValid(final String email) {
+    public boolean isEmailValid(String email) {
         EmailVerificationDto emailVerificationDto = emailVerificationService.verifyEmail(email);
         return emailVerificationDto.getDnsCheck().equals("true") && emailVerificationDto.getFormatCheck().equals("true")
                 && emailVerificationDto.getSmtpCheck().equals("true");

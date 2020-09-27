@@ -11,14 +11,14 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 @RunWith(MockitoJUnitRunner.class)
-public class RentalTestSuite {
+public class RentalMapperTestSuite {
 
     @InjectMocks
     private RentalMapper rentalMapper;
@@ -83,7 +83,7 @@ public class RentalTestSuite {
     public void mapToRentalComplexDtoListTest() {
         //Given
         rental.setId(1L);
-        List<Rental> rentalList = Arrays.asList(rental);
+        List<Rental> rentalList = Collections.singletonList(rental);
 
         //When
         List<RentalComplexDto> mappedList = rentalMapper.mapToRentalComplexDtoList(rentalList);

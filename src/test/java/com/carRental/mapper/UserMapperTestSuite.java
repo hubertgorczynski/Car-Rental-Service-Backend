@@ -8,7 +8,7 @@ import org.mockito.InjectMocks;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.time.LocalDate;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -76,7 +76,7 @@ public class UserMapperTestSuite {
     public void mapToUserDtoListTest() {
         //Given
         user.setAccountCreated(LocalDate.now());
-        List<User> userList = Arrays.asList(user);
+        List<User> userList = Collections.singletonList(user);
 
         //When
         List<UserDto> mappedUserDtoList = userMapper.mapToUserDtoList(userList);

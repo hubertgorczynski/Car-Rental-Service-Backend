@@ -11,6 +11,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -118,7 +119,7 @@ public class CarServiceTestSuite {
     @Test
     public void getCarsByBrandTest() {
         //Given
-        List<Car> carByBrandList = Arrays.asList(car1);
+        List<Car> carByBrandList = Collections.singletonList(car1);
         when(carRepository.findAllByBrand("Audi")).thenReturn(carByBrandList);
 
         //When
