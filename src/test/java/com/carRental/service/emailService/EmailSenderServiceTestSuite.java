@@ -1,7 +1,6 @@
-package com.carRental.service;
+package com.carRental.service.emailService;
 
 import com.carRental.domain.Mail;
-import com.carRental.service.emailService.EmailSenderService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -10,8 +9,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class EmailSenderServiceTestSuite {

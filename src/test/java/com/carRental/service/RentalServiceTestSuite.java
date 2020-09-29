@@ -2,6 +2,7 @@ package com.carRental.service;
 
 import com.carRental.domain.Car;
 import com.carRental.domain.Rental;
+import com.carRental.domain.Status;
 import com.carRental.domain.User;
 import com.carRental.domain.dto.RentalDto;
 import com.carRental.domain.dto.RentalExtensionDto;
@@ -19,9 +20,12 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -73,6 +77,24 @@ public class RentalServiceTestSuite {
             1L);
 
     @Test
+    public void createRentalTest() throws CarNotFoundException, UserNotFoundException {
+        //Given
+        when(userRepository.findById(any())).thenReturn(Optional.ofNullable(user));
+        when(carRepository.findById(any())).thenReturn(Optional.ofNullable(car));
+        when(rentalRepository.save(any())).thenReturn(rental);
+
+        //When
+        Rental createdRental = rentalService.createRental(rentalDto);
+
+        //Then
+        assertEquals(createdRental.getCar().getBrand(), car.getBrand());
+        assertEquals(createdRental.getCar().getStatus(), Status.RENTED);
+        assertEquals(createdRental.getUser().getName(), user.getName());
+        assertEquals(createdRental.getRentedFrom(), LocalDate.of(2020, 10, 10));
+        assertEquals(createdRental.getRentedTo(),  LocalDate.of(2020, 10, 15));
+    }
+
+    @Test
     public void modifyRentalTest() throws UserNotFoundException, RentalNotFoundException, CarNotFoundException {
         //Given
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
@@ -102,6 +124,33 @@ public class RentalServiceTestSuite {
         assertEquals(extendedRental.getRentedFrom(), LocalDate.of(2020, 10, 10));
         assertEquals(extendedRental.getRentedTo(), LocalDate.of(2020, 10, 20));
     }
+
+    @Test
+    public void getRentalByIdTest() throws RentalNotFoundException {
+        //Given
+        when(rentalRepository.findById(1L)).thenReturn(Optional.of(rental));
+
+        //When
+        Rental result = rentalService.getRentalById(1L);
+
+        //Then
+        assertEquals(result.getId(), result.getId());
+    }
+
+    @Test
+    public void getRentalsTest() {
+        //Given
+        List<Rental> rentalList = Collections.singletonList(rental);
+        when(rentalRepository.findAll()).thenReturn(rentalList);
+
+        //When
+        List<Rental> resultList = rentalService.getRentals();
+
+        //Then
+        assertNotNull(resultList);
+        assertEquals(1, resultList.size());
+    }
+
 
     @Test
     public void closeRentalTest() throws RentalNotFoundException {

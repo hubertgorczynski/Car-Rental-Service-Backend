@@ -84,17 +84,17 @@ public class UserFacadeTestSuite {
         //Given
         EmailVerificationDto emailVerificationDto = new EmailVerificationDto("true", "true", "true");
         when(emailVerificationService.verifyEmail(any())).thenReturn(emailVerificationDto);
-        when(userMapper.mapToUser(userDto)).thenReturn(user);
+        when(userMapper.mapToUser(any())).thenReturn(user);
         when(userService.saveUser(user)).thenReturn(user);
-        when(userMapper.mapToUserDto(user)).thenReturn(userDto);
-        doNothing().when(emailToUsersService).sendEmailAboutCreatingUser(user);
+        when(userMapper.mapToUserDto(any())).thenReturn(userDto);
 
         //When
-        UserDto modifiedUser = userFacade.saveUser(userDto);
+        UserDto modifiedUser = userFacade.modifyUser(userDto);
 
         //Then
-        assertEquals(userDto.getId(), modifiedUser.getId());
-        verify(emailToUsersService, times(1)).sendEmailAboutCreatingUser(user);
+        assertEquals(userDto.getName(), modifiedUser.getName());
+        assertEquals(userDto.getEmail(), modifiedUser.getEmail());
+        assertEquals(userDto.getPhoneNumber(), modifiedUser.getPhoneNumber());
     }
 
     @Test
