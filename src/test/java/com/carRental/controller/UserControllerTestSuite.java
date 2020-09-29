@@ -32,7 +32,6 @@ public class UserControllerTestSuite {
     @MockBean
     private UserFacade userFacade;
 
-
     UserDto userDto = new UserDto(
             1L,
             "Jack",
