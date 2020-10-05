@@ -65,6 +65,21 @@ public class RentalControllerTestSuite {
     }
 
     @Test
+    public void shouldFetchAllRentalsByUserId() throws Exception {
+        //Given
+        RentalComplexDto rentalComplexDto = initRentalComplexDto();
+        List<RentalComplexDto> rentalComplexDtoList = Collections.singletonList(rentalComplexDto);
+        when(rentalFacade.getRentalsByUserId(1L)).thenReturn(rentalComplexDtoList);
+
+        //When & Then
+        mockMvc.perform(get("/v1/rentals/by_user_id/1")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().is(200))
+                .andExpect(jsonPath("$", hasSize(1)))
+                .andExpect(jsonPath("$[0].id", is(1)));
+    }
+
+    @Test
     public void shouldCloseRental() throws Exception {
         //Given
         //When & Then

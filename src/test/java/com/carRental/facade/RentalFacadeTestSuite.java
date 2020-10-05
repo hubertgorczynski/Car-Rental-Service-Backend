@@ -90,6 +90,33 @@ public class RentalFacadeTestSuite {
     }
 
     @Test
+    public void getRentalsByUserIdTest() {
+        //Given
+        Rental rental = initRental();
+        rental.setId(1L);
+        RentalComplexDto rentalComplexDto = initRentalComplexDto();
+        List<Rental> rentalList = Collections.singletonList(rental);
+        List<RentalComplexDto> rentalComplexDtoList = Collections.singletonList(rentalComplexDto);
+
+        when(rentalService.getRentalsByUserId(1L)).thenReturn(rentalList);
+        when(rentalMapper.mapToRentalComplexDtoList(rentalList)).thenReturn(rentalComplexDtoList);
+
+        //When
+        List<RentalComplexDto> filteredList = rentalFacade.getRentalsByUserId(1L);
+
+        //Then
+        assertNotNull(filteredList);
+        assertEquals(1, filteredList.size());
+
+        filteredList.forEach(r -> {
+            assertEquals(r.getId(), rentalComplexDto.getId());
+            assertEquals(r.getRentedFrom(), rentalComplexDto.getRentedFrom());
+            assertEquals(r.getRentedTo(), rentalComplexDto.getRentedTo());
+            assertEquals(r.getCarBrand(), rentalComplexDto.getCarBrand());
+        });
+    }
+
+    @Test
     public void createRentalTest() throws CarNotFoundException, UserNotFoundException {
         //Given
         Rental rental = initRental();

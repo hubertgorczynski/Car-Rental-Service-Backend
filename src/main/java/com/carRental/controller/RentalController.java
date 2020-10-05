@@ -34,6 +34,11 @@ public class RentalController {
         return rentalFacade.getRentals();
     }
 
+    @GetMapping("/by_user_id/{userId}")
+    public List<RentalComplexDto> getRentalsByUserId(@PathVariable Long userId) {
+        return rentalFacade.getRentalsByUserId(userId);
+    }
+
     @PostMapping
     public RentalComplexDto createRental(@RequestBody RentalDto rentalDto) throws CarNotFoundException, UserNotFoundException {
         return rentalFacade.createRental(rentalDto);

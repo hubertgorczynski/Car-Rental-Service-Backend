@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
@@ -43,6 +44,13 @@ public class RentalService {
 
     public List<Rental> getRentals() {
         return rentalRepository.findAll();
+    }
+
+    public List<Rental> getRentalsByUserId(Long id) {
+        List<Rental> rentalList = getRentals();
+        return rentalList.stream()
+                .filter(r -> r.getUser().getId().equals(id))
+                .collect(Collectors.toList());
     }
 
     public Rental createRental(RentalDto rentalDto) throws UserNotFoundException, CarNotFoundException {

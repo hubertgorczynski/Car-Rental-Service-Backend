@@ -133,6 +133,24 @@ public class RentalServiceTestSuite {
     }
 
     @Test
+    public void getRentalsByUserIdTest() {
+        //Given
+        Rental rental = initRental();
+        rental.setId(1L);
+        List<Rental> rentalList = Collections.singletonList(rental);
+
+        when(rentalService.getRentals()).thenReturn(rentalList);
+
+        //When
+        List<Rental> filteredList = rentalService.getRentalsByUserId(1L);
+
+        //Then
+        assertNotNull(filteredList);
+        assertEquals(1, filteredList.size());
+        assertEquals(1L, (long) filteredList.get(0).getId());
+    }
+
+    @Test
     public void closeRentalTest() throws RentalNotFoundException {
         //Given
         Rental rental = initRental();

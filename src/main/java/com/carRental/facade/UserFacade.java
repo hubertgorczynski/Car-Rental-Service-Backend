@@ -79,4 +79,8 @@ public class UserFacade {
         return emailVerificationDto.getDnsCheck().equals("true") && emailVerificationDto.getFormatCheck().equals("true")
                 && emailVerificationDto.getSmtpCheck().equals("true");
     }
+
+    public boolean isUserAlreadyRegistered(String email) {
+        return userService.isUserAlreadyRegistered(email);
+    }
 }

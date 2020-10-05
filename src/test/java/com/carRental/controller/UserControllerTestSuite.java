@@ -1,9 +1,12 @@
 package com.carRental.controller;
 
+import com.carRental.domain.dto.CarDto;
 import com.carRental.domain.dto.UserDto;
 import com.carRental.facade.UserFacade;
+import com.google.gson.Gson;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentMatchers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -103,6 +106,17 @@ public class UserControllerTestSuite {
                 .contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8")
                 .param("id", "1"))
+                .andExpect(status().is(200));
+    }
+
+    @Test
+    public void isUserAlreadyRegistered() throws Exception {
+        //Given
+        when(userFacade.isUserAlreadyRegistered("email")).thenReturn(true);
+
+        //When & Then
+        mockMvc.perform(get("/v1/users/is_user_registered/email")
+                .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is(200));
     }
 

@@ -14,8 +14,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -104,6 +103,17 @@ public class UserServiceTestSuite {
 
         //Then
         verify(userRepository, times(1)).deleteById(2L);
+    }
+
+    @Test
+    public void isUserAlreadyRegisteredTest() {
+        //Given
+        when(userRepository.existsByEmail("email")).thenReturn(true);
+
+        //When
+        boolean result = userRepository.existsByEmail("email");
+
+        assertTrue(result);
     }
 
     private User initUser() {

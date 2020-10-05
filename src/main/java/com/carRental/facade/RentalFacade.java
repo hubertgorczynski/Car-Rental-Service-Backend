@@ -42,6 +42,10 @@ public class RentalFacade {
         return rentalMapper.mapToRentalComplexDtoList(rentalService.getRentals());
     }
 
+    public List<RentalComplexDto> getRentalsByUserId(Long id) {
+        return rentalMapper.mapToRentalComplexDtoList(rentalService.getRentalsByUserId(id));
+    }
+
     public RentalComplexDto createRental(RentalDto rentalDto) throws UserNotFoundException, CarNotFoundException {
         Rental createdRental = rentalService.createRental(rentalDto);
         emailToUsersService.sendEmailAboutRental(createdRental, "created");

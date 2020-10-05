@@ -172,6 +172,17 @@ public class UserFacadeTestSuite {
     }
 
     @Test
+    public void isUserAlreadyRegisteredTest() {
+        //Given
+        when(userService.isUserAlreadyRegistered("email")).thenReturn(true);
+
+        //When
+        boolean result = userFacade.isUserAlreadyRegistered("email");
+
+        assertTrue(result);
+    }
+
+    @Test
     public void isEmailValidTest() {
         //Given
         EmailVerificationDto emailVerificationDto = new EmailVerificationDto("true", "true", "true");
