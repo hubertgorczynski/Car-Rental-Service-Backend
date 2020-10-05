@@ -42,27 +42,13 @@ public class UserFacadeTestSuite {
     @Mock
     private EmailVerificationService emailVerificationService;
 
-    User user = new User(
-            1L,
-            "Jack",
-            "Smith",
-            "email",
-            "password",
-            123456);
-
-    UserDto userDto = new UserDto(
-            1L,
-            "Jack",
-            "Smith",
-            "email",
-            "password",
-            123456,
-            LocalDate.now());
-
     @Test
     public void userSaveTest() throws InvalidEmailException {
         //Given
-        EmailVerificationDto emailVerificationDto = new EmailVerificationDto("true", "true", "true");
+        User user = initUser();
+        UserDto userDto = initUserDto();
+        EmailVerificationDto emailVerificationDto = initEmailVerificationDto();
+
         when(emailVerificationService.verifyEmail(any())).thenReturn(emailVerificationDto);
         when(userMapper.mapToUser(userDto)).thenReturn(user);
         when(userService.saveUser(user)).thenReturn(user);
@@ -82,7 +68,10 @@ public class UserFacadeTestSuite {
     @Test
     public void modifyUserTest() throws InvalidEmailException {
         //Given
-        EmailVerificationDto emailVerificationDto = new EmailVerificationDto("true", "true", "true");
+        User user = initUser();
+        UserDto userDto = initUserDto();
+        EmailVerificationDto emailVerificationDto = initEmailVerificationDto();
+
         when(emailVerificationService.verifyEmail(any())).thenReturn(emailVerificationDto);
         when(userMapper.mapToUser(any())).thenReturn(user);
         when(userService.saveUser(user)).thenReturn(user);
@@ -100,6 +89,9 @@ public class UserFacadeTestSuite {
     @Test
     public void getUserByIdTest() throws UserNotFoundException {
         //Given
+        User user = initUser();
+        UserDto userDto = initUserDto();
+
         when(userService.getUserById(1L)).thenReturn(user);
         when(userMapper.mapToUserDto(user)).thenReturn(userDto);
 
@@ -113,6 +105,9 @@ public class UserFacadeTestSuite {
     @Test
     public void getUserByEmailTest() throws UserNotFoundException {
         //Given
+        User user = initUser();
+        UserDto userDto = initUserDto();
+
         when(userService.getUserByEmail("email")).thenReturn(user);
         when(userMapper.mapToUserDto(user)).thenReturn(userDto);
 
@@ -126,6 +121,9 @@ public class UserFacadeTestSuite {
     @Test
     public void getUserByPhoneNumberTest() throws UserNotFoundException {
         //Given
+        User user = initUser();
+        UserDto userDto = initUserDto();
+
         when(userService.getUserByPhoneNumber(123456)).thenReturn(user);
         when(userMapper.mapToUserDto(user)).thenReturn(userDto);
 
@@ -139,6 +137,9 @@ public class UserFacadeTestSuite {
     @Test
     public void getUsersTest() {
         //Given
+        User user = initUser();
+        UserDto userDto = initUserDto();
+
         List<User> userList = Collections.singletonList(user);
         List<UserDto> userDtoList = Collections.singletonList(userDto);
 
@@ -161,7 +162,7 @@ public class UserFacadeTestSuite {
     }
 
     @Test
-    public void deleteUserTest(){
+    public void deleteUserTest() {
         //Given
         //When
         userFacade.deleteUser(2L);
@@ -181,5 +182,30 @@ public class UserFacadeTestSuite {
 
         //Then
         assertTrue(result);
+    }
+
+    private User initUser() {
+        return new User(
+                1L,
+                "Jack",
+                "Smith",
+                "email",
+                "password",
+                123456);
+    }
+
+    private UserDto initUserDto() {
+        return new UserDto(
+                1L,
+                "Jack",
+                "Smith",
+                "email",
+                "password",
+                123456,
+                LocalDate.now());
+    }
+
+    private EmailVerificationDto initEmailVerificationDto() {
+        return new EmailVerificationDto("true", "true", "true");
     }
 }

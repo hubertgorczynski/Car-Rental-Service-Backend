@@ -33,21 +33,10 @@ public class RentalControllerTestSuite {
     @MockBean
     private RentalFacade rentalFacade;
 
-    RentalComplexDto rentalComplexDto = new RentalComplexDto(
-            1L,
-            LocalDate.of(2020, 10, 10),
-            LocalDate.of(2020, 10, 15),
-            new BigDecimal(125),
-            "Audi",
-            "A3",
-            "Jack",
-            "Smith",
-            "email",
-            123456);
-
     @Test
     public void shouldFetchRentalById() throws Exception {
         //Given
+        RentalComplexDto rentalComplexDto = initRentalComplexDto();
         when(rentalFacade.getRentalById(1L)).thenReturn(rentalComplexDto);
 
         //When & Then
@@ -62,6 +51,7 @@ public class RentalControllerTestSuite {
     @Test
     public void shouldFetchAllRentals() throws Exception {
         //Given
+        RentalComplexDto rentalComplexDto = initRentalComplexDto();
         List<RentalComplexDto> rentalComplexDtoList = Collections.singletonList(rentalComplexDto);
         when(rentalFacade.getRentals()).thenReturn(rentalComplexDtoList);
 
@@ -83,5 +73,19 @@ public class RentalControllerTestSuite {
                 .characterEncoding("UTF-8")
                 .param("id", "1"))
                 .andExpect(status().is(200));
+    }
+
+    private RentalComplexDto initRentalComplexDto() {
+        return new RentalComplexDto(
+                1L,
+                LocalDate.of(2020, 10, 10),
+                LocalDate.of(2020, 10, 15),
+                new BigDecimal(125),
+                "Audi",
+                "A3",
+                "Jack",
+                "Smith",
+                "email",
+                123456);
     }
 }

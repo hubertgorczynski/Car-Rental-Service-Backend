@@ -4,8 +4,9 @@ import com.carRental.domain.User;
 import com.carRental.domain.dto.UserDto;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDate;
 import java.util.Collections;
@@ -14,67 +15,55 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-@RunWith(MockitoJUnitRunner.class)
+@SpringBootTest
+@RunWith(SpringRunner.class)
 public class UserMapperTestSuite {
 
-    @InjectMocks
+    @Autowired
     private UserMapper userMapper;
-
-    User user = new User(
-            1L,
-            "Jack",
-            "Smith",
-            "email",
-            "password",
-            123456);
-
-    UserDto userDto = new UserDto(
-            1L,
-            "Jack",
-            "Smith",
-            "email",
-            "password",
-            123456,
-            LocalDate.now());
 
     @Test
     public void mapToUserTest() {
         //Given
+        UserDto userDto = initUserDto();
 
         //When
         User mappedUser = userMapper.mapToUser(userDto);
+        mappedUser.setAccountCreated(LocalDate.now());
 
         //Then
-        assertEquals(mappedUser.getId(), user.getId());
-        assertEquals(mappedUser.getName(), user.getName());
-        assertEquals(mappedUser.getLastName(), user.getLastName());
-        assertEquals(mappedUser.getEmail(), user.getEmail());
-        assertEquals(mappedUser.getPassword(), user.getPassword());
-        assertEquals(mappedUser.getPhoneNumber(), user.getPhoneNumber());
-        assertEquals(mappedUser.getAccountCreated(), user.getAccountCreated());
+        assertEquals(1L, (long) mappedUser.getId());
+        assertEquals("Jack", mappedUser.getName());
+        assertEquals("Smith", mappedUser.getLastName());
+        assertEquals("email", mappedUser.getEmail());
+        assertEquals("password", mappedUser.getPassword());
+        assertEquals(123456, mappedUser.getPhoneNumber());
+        assertEquals(LocalDate.now(), mappedUser.getAccountCreated());
     }
 
     @Test
     public void mapToUserDtoTest() {
         //Given
+        User user = initUser();
         user.setAccountCreated(LocalDate.now());
 
         //When
         UserDto mappedUserDto = userMapper.mapToUserDto(user);
 
         //Then
-        assertEquals(mappedUserDto.getId(), userDto.getId());
-        assertEquals(mappedUserDto.getName(), userDto.getName());
-        assertEquals(mappedUserDto.getLastName(), userDto.getLastName());
-        assertEquals(mappedUserDto.getEmail(), userDto.getEmail());
-        assertEquals(mappedUserDto.getPassword(), userDto.getPassword());
-        assertEquals(mappedUserDto.getPhoneNumber(), userDto.getPhoneNumber());
-        assertEquals(mappedUserDto.getAccountCreated(), userDto.getAccountCreated());
+        assertEquals(1L, (long) mappedUserDto.getId());
+        assertEquals("Jack", mappedUserDto.getName());
+        assertEquals("Smith", mappedUserDto.getLastName());
+        assertEquals("email", mappedUserDto.getEmail());
+        assertEquals("password", mappedUserDto.getPassword());
+        assertEquals(123456, mappedUserDto.getPhoneNumber());
+        assertEquals(LocalDate.now(), mappedUserDto.getAccountCreated());
     }
 
     @Test
     public void mapToUserDtoListTest() {
         //Given
+        User user = initUser();
         user.setAccountCreated(LocalDate.now());
         List<User> userList = Collections.singletonList(user);
 
@@ -85,15 +74,33 @@ public class UserMapperTestSuite {
         assertNotNull(mappedUserDtoList);
         assertEquals(1, mappedUserDtoList.size());
 
-        mappedUserDtoList.forEach(u -> {
-            assertEquals(u.getId(), userDto.getId());
-            assertEquals(u.getName(), userDto.getName());
-            assertEquals(u.getLastName(), userDto.getLastName());
-            assertEquals(u.getEmail(), userDto.getEmail());
-            assertEquals(u.getPassword(), userDto.getPassword());
-            assertEquals(u.getPhoneNumber(), userDto.getPhoneNumber());
-            assertEquals(u.getPhoneNumber(), userDto.getPhoneNumber());
-            assertEquals(u.getAccountCreated(), userDto.getAccountCreated());
-        });
+        assertEquals(1L, (long) mappedUserDtoList.get(0).getId());
+        assertEquals("Jack", mappedUserDtoList.get(0).getName());
+        assertEquals("Smith", mappedUserDtoList.get(0).getLastName());
+        assertEquals("email", mappedUserDtoList.get(0).getEmail());
+        assertEquals("password", mappedUserDtoList.get(0).getPassword());
+        assertEquals(123456, mappedUserDtoList.get(0).getPhoneNumber());
+        assertEquals(LocalDate.now(), mappedUserDtoList.get(0).getAccountCreated());
+    }
+
+    private User initUser() {
+        return new User(
+                1L,
+                "Jack",
+                "Smith",
+                "email",
+                "password",
+                123456);
+    }
+
+    private UserDto initUserDto() {
+        return new UserDto(
+                1L,
+                "Jack",
+                "Smith",
+                "email",
+                "password",
+                123456,
+                LocalDate.now());
     }
 }

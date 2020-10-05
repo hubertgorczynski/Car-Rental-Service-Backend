@@ -35,22 +35,11 @@ public class CarControllerTestSuite {
     @MockBean
     private CarFacade carFacade;
 
-    CarDto carDto = new CarDto(
-            1L,
-            "sampleVin",
-            "Audi",
-            "A3",
-            2015,
-            "Diesel",
-            3.0,
-            "Saloon",
-            250000,
-            new BigDecimal(25),
-            Status.AVAILABLE);
 
     @Test
     public void shouldFetchCarById() throws Exception {
         //Given
+        CarDto carDto = initCarDto();
         when(carFacade.getCarById(1L)).thenReturn(carDto);
 
         //When & Then
@@ -66,6 +55,7 @@ public class CarControllerTestSuite {
     @Test
     public void shouldFetchCarByVin() throws Exception {
         //Given
+        CarDto carDto = initCarDto();
         when(carFacade.getCarByVin("sampleVin")).thenReturn(carDto);
 
         //When & Then
@@ -81,7 +71,7 @@ public class CarControllerTestSuite {
     @Test
     public void shouldFetchAllCars() throws Exception {
         //Given
-        List<CarDto> carDtoList = Collections.singletonList(carDto);
+        List<CarDto> carDtoList = initCarDtoList();
         when(carFacade.getCars()).thenReturn(carDtoList);
 
         //When & Then
@@ -97,7 +87,7 @@ public class CarControllerTestSuite {
     @Test
     public void shouldFetchAllCarsByBrand() throws Exception {
         //Given
-        List<CarDto> carDtoList = Collections.singletonList(carDto);
+        List<CarDto> carDtoList = initCarDtoList();
         when(carFacade.getCarsByBrand("Audi")).thenReturn(carDtoList);
 
         //When & Then
@@ -113,7 +103,7 @@ public class CarControllerTestSuite {
     @Test
     public void shouldFetchAllCarsByFuelType() throws Exception {
         //Given
-        List<CarDto> carDtoList = Collections.singletonList(carDto);
+        List<CarDto> carDtoList = initCarDtoList();
         when(carFacade.getCarsByFuelType("Diesel")).thenReturn(carDtoList);
 
         //When & Then
@@ -129,7 +119,7 @@ public class CarControllerTestSuite {
     @Test
     public void shouldFetchCarsByBodyClass() throws Exception {
         //Given
-        List<CarDto> carDtoList = Collections.singletonList(carDto);
+        List<CarDto> carDtoList = initCarDtoList();
         when(carFacade.getCarsByBodyClass("Saloon")).thenReturn(carDtoList);
 
         //When & Then
@@ -145,7 +135,7 @@ public class CarControllerTestSuite {
     @Test
     public void shouldFetchCarsByMileage() throws Exception {
         //Given
-        List<CarDto> carDtoList = Collections.singletonList(carDto);
+        List<CarDto> carDtoList = initCarDtoList();
         when(carFacade.getCarsByMileageLessThen(300000)).thenReturn(carDtoList);
 
         //When & Then
@@ -162,7 +152,7 @@ public class CarControllerTestSuite {
     @Test
     public void shouldFetchCarsByCostPerDay() throws Exception {
         //Given
-        List<CarDto> carDtoList = Collections.singletonList(carDto);
+        List<CarDto> carDtoList = initCarDtoList();
         when(carFacade.getCarsByCostPerDayLessThan(new BigDecimal(30))).thenReturn(carDtoList);
 
         //When & Then
@@ -179,6 +169,7 @@ public class CarControllerTestSuite {
     @Test
     public void shouldCreateCar() throws Exception {
         //Given
+        CarDto carDto = initCarDto();
         when(carFacade.saveCar(ArgumentMatchers.any(CarDto.class))).thenReturn(carDto);
 
         Gson gson = new Gson();
@@ -197,6 +188,7 @@ public class CarControllerTestSuite {
     @Test
     public void shouldModifyCar() throws Exception {
         //Given
+        CarDto carDto = initCarDto();
         when(carFacade.saveCar(ArgumentMatchers.any(CarDto.class))).thenReturn(carDto);
 
         Gson gson = new Gson();
@@ -221,5 +213,25 @@ public class CarControllerTestSuite {
                 .characterEncoding("UTF-8")
                 .param("id", "1"))
                 .andExpect(status().is(200));
+    }
+
+    private CarDto initCarDto() {
+        return new CarDto(
+                1L,
+                "sampleVin",
+                "Audi",
+                "A3",
+                2015,
+                "Diesel",
+                3.0,
+                "Saloon",
+                250000,
+                new BigDecimal(25),
+                Status.AVAILABLE);
+    }
+
+    private List<CarDto> initCarDtoList() {
+        CarDto carDto = initCarDto();
+        return Collections.singletonList(carDto);
     }
 }

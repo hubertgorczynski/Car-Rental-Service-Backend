@@ -33,37 +33,12 @@ public class CarFacadeTestSuite {
     @Mock
     private CarMapper carMapper;
 
-    Car car = new Car(
-            1L,
-            "sampleVin",
-            "Audi",
-            "A3",
-            2015,
-            "Diesel",
-            3.0,
-            "Saloon",
-            250000,
-            new BigDecimal(25));
-
-    CarDto carDto = new CarDto(
-            1L,
-            "sampleVin",
-            "Audi",
-            "A3",
-            2015,
-            "Diesel",
-            3.0,
-            "Saloon",
-            250000,
-            new BigDecimal(25),
-            Status.AVAILABLE);
-
-    List<Car> carList = Collections.singletonList(car);
-    List<CarDto> carDtoList = Collections.singletonList(carDto);
-
     @Test
     public void saveCarTest() {
         //Given
+        Car car = initCar();
+        CarDto carDto = initCarDto();
+
         when(carMapper.mapToCar(any())).thenReturn(car);
         when(carMapper.mapToCarDto(any())).thenReturn(carDto);
 
@@ -79,6 +54,9 @@ public class CarFacadeTestSuite {
     @Test
     public void getCarByIdTest() throws CarNotFoundException {
         //Given
+        Car car = initCar();
+        CarDto carDto = initCarDto();
+
         when(carService.getCarById(1L)).thenReturn(car);
         when(carMapper.mapToCarDto(car)).thenReturn(carDto);
 
@@ -93,6 +71,9 @@ public class CarFacadeTestSuite {
     @Test
     public void getCarByVinTest() throws CarNotFoundException {
         //Given
+        Car car = initCar();
+        CarDto carDto = initCarDto();
+
         when(carService.getCarByVin("sampleVin")).thenReturn(car);
         when(carMapper.mapToCarDto(car)).thenReturn(carDto);
 
@@ -107,6 +88,9 @@ public class CarFacadeTestSuite {
     @Test
     public void getCarsTest() {
         //Given
+        List<Car> carList = initCarList();
+        List<CarDto> carDtoList = initCarDtoList();
+
         when(carService.getCars()).thenReturn(carList);
         when(carMapper.mapToCarDtoList(carList)).thenReturn(carDtoList);
 
@@ -118,14 +102,17 @@ public class CarFacadeTestSuite {
         assertEquals(1, resultList.size());
 
         resultList.forEach(c -> {
-            assertEquals(c.getId(), carDto.getId());
-            assertEquals(c.getStatus(), carDto.getStatus());
+            assertEquals(c.getId(), carDtoList.get(0).getId());
+            assertEquals(c.getStatus(), carDtoList.get(0).getStatus());
         });
     }
 
     @Test
     public void getCarsByBrandTest() {
         //Given
+        List<Car> carList = initCarList();
+        List<CarDto> carDtoList = initCarDtoList();
+
         when(carService.getCarsByBrand("Audi")).thenReturn(carList);
         when(carMapper.mapToCarDtoList(carList)).thenReturn(carDtoList);
 
@@ -137,14 +124,17 @@ public class CarFacadeTestSuite {
         assertEquals(1, resultList.size());
 
         resultList.forEach(c -> {
-            assertEquals(c.getId(), carDto.getId());
-            assertEquals(c.getBrand(), carDto.getBrand());
+            assertEquals(c.getId(), carDtoList.get(0).getId());
+            assertEquals(c.getBrand(), carDtoList.get(0).getBrand());
         });
     }
 
     @Test
     public void getCarsByFuelTypeTest() {
         //Given
+        List<Car> carList = initCarList();
+        List<CarDto> carDtoList = initCarDtoList();
+
         when(carService.getCarsByFuelType("Diesel")).thenReturn(carList);
         when(carMapper.mapToCarDtoList(carList)).thenReturn(carDtoList);
 
@@ -156,14 +146,17 @@ public class CarFacadeTestSuite {
         assertEquals(1, resultList.size());
 
         resultList.forEach(c -> {
-            assertEquals(c.getId(), carDto.getId());
-            assertEquals(c.getFuelType(), carDto.getFuelType());
+            assertEquals(c.getId(), carDtoList.get(0).getId());
+            assertEquals(c.getFuelType(), carDtoList.get(0).getFuelType());
         });
     }
 
     @Test
     public void getCarsByBodyClassTest() {
         //Given
+        List<Car> carList = initCarList();
+        List<CarDto> carDtoList = initCarDtoList();
+
         when(carService.getCarsByBodyClass("Saloon")).thenReturn(carList);
         when(carMapper.mapToCarDtoList(carList)).thenReturn(carDtoList);
 
@@ -175,14 +168,17 @@ public class CarFacadeTestSuite {
         assertEquals(1, resultList.size());
 
         resultList.forEach(c -> {
-            assertEquals(c.getId(), carDto.getId());
-            assertEquals(c.getBodyClass(), carDto.getBodyClass());
+            assertEquals(c.getId(), carDtoList.get(0).getId());
+            assertEquals(c.getBodyClass(), carDtoList.get(0).getBodyClass());
         });
     }
 
     @Test
     public void getCarsByMileageLessThenTest() {
         //Given
+        List<Car> carList = initCarList();
+        List<CarDto> carDtoList = initCarDtoList();
+
         when(carService.getCarsByMileageLessThen(260000)).thenReturn(carList);
         when(carMapper.mapToCarDtoList(carList)).thenReturn(carDtoList);
 
@@ -194,14 +190,17 @@ public class CarFacadeTestSuite {
         assertEquals(1, resultList.size());
 
         resultList.forEach(c -> {
-            assertEquals(c.getId(), carDto.getId());
-            assertEquals(c.getMileage(), carDto.getMileage());
+            assertEquals(c.getId(), carDtoList.get(0).getId());
+            assertEquals(c.getMileage(), carDtoList.get(0).getMileage());
         });
     }
 
     @Test
     public void getCarsByCostPerDayLessThenTest() {
         //Given
+        List<Car> carList = initCarList();
+        List<CarDto> carDtoList = initCarDtoList();
+
         when(carService.getCarsByCostPerDayLessThan(new BigDecimal(32))).thenReturn(carList);
         when(carMapper.mapToCarDtoList(carList)).thenReturn(carDtoList);
 
@@ -213,8 +212,8 @@ public class CarFacadeTestSuite {
         assertEquals(1, resultList.size());
 
         resultList.forEach(c -> {
-            assertEquals(c.getId(), carDto.getId());
-            assertEquals(c.getCostPerDay(), carDto.getCostPerDay());
+            assertEquals(c.getId(), carDtoList.get(0).getId());
+            assertEquals(c.getCostPerDay(), carDtoList.get(0).getCostPerDay());
         });
     }
 
@@ -226,5 +225,44 @@ public class CarFacadeTestSuite {
 
         //Then
         verify(carService, times(1)).deleteCar(2L);
+    }
+
+    private Car initCar() {
+        return new Car(
+                1L,
+                "sampleVin",
+                "Audi",
+                "A3",
+                2015,
+                "Diesel",
+                3.0,
+                "Saloon",
+                250000,
+                new BigDecimal(25));
+    }
+
+    private CarDto initCarDto() {
+        return new CarDto(
+                1L,
+                "sampleVin",
+                "Audi",
+                "A3",
+                2015,
+                "Diesel",
+                3.0,
+                "Saloon",
+                250000,
+                new BigDecimal(25),
+                Status.AVAILABLE);
+    }
+
+    private List<Car> initCarList() {
+        Car car = initCar();
+        return Collections.singletonList(car);
+    }
+
+    private List<CarDto> initCarDtoList() {
+        CarDto carDto = initCarDto();
+        return Collections.singletonList(carDto);
     }
 }

@@ -27,17 +27,10 @@ public class UserServiceTestSuite {
     @Mock
     private UserRepository userRepository;
 
-    User user = new User(
-            1L,
-            "Jack",
-            "Smith",
-            "email",
-            "password",
-            123456);
-
     @Test
     public void saveUserTest() {
         //Given
+        User user = initUser();
         when(userRepository.save(user)).thenReturn(user);
 
         //When
@@ -52,6 +45,7 @@ public class UserServiceTestSuite {
     @Test
     public void getUserByIdTest() throws UserNotFoundException {
         //Given
+        User user = initUser();
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
 
         //When
@@ -64,6 +58,7 @@ public class UserServiceTestSuite {
     @Test
     public void getUserByEmailTest() throws UserNotFoundException {
         //Given
+        User user = initUser();
         when(userRepository.findByEmail("email")).thenReturn(Optional.of(user));
 
         //When
@@ -76,6 +71,7 @@ public class UserServiceTestSuite {
     @Test
     public void getUserByPhoneNumberTest() throws UserNotFoundException {
         //Given
+        User user = initUser();
         when(userRepository.findByPhoneNumber(123456)).thenReturn(Optional.of(user));
 
         //When
@@ -88,6 +84,7 @@ public class UserServiceTestSuite {
     @Test
     public void getAllUsersTest() {
         //Given
+        User user = initUser();
         List<User> userList = Collections.singletonList(user);
         when(userRepository.findAll()).thenReturn(userList);
 
@@ -107,5 +104,15 @@ public class UserServiceTestSuite {
 
         //Then
         verify(userRepository, times(1)).deleteById(2L);
+    }
+
+    private User initUser() {
+        return new User(
+                1L,
+                "Jack",
+                "Smith",
+                "email",
+                "password",
+                123456);
     }
 }

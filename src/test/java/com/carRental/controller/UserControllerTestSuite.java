@@ -32,18 +32,10 @@ public class UserControllerTestSuite {
     @MockBean
     private UserFacade userFacade;
 
-    UserDto userDto = new UserDto(
-            1L,
-            "Jack",
-            "Smith",
-            "simpleEmail",
-            "password",
-            123456,
-            LocalDate.now());
-
     @Test
     public void shouldFetchUserById() throws Exception {
         //Given
+        UserDto userDto = initUserDto();
         when(userFacade.getUserById(1L)).thenReturn(userDto);
 
         //When & Then
@@ -59,6 +51,7 @@ public class UserControllerTestSuite {
     @Test
     public void shouldFetchUserByEmail() throws Exception {
         //Given
+        UserDto userDto = initUserDto();
         when(userFacade.getUserByEmail("simpleEmail")).thenReturn(userDto);
 
         //When & Then
@@ -73,6 +66,7 @@ public class UserControllerTestSuite {
     @Test
     public void shouldFetchUserByPhoneNumber() throws Exception {
         //Given
+        UserDto userDto = initUserDto();
         when(userFacade.getUserByPhoneNumber(123456)).thenReturn(userDto);
 
         //When & Then
@@ -87,6 +81,7 @@ public class UserControllerTestSuite {
     @Test
     public void shouldFetchAllUsers() throws Exception {
         //Given
+        UserDto userDto = initUserDto();
         List<UserDto> userDtoList = Collections.singletonList(userDto);
         when(userFacade.getAllUsers()).thenReturn(userDtoList);
 
@@ -109,5 +104,16 @@ public class UserControllerTestSuite {
                 .characterEncoding("UTF-8")
                 .param("id", "1"))
                 .andExpect(status().is(200));
+    }
+
+    private UserDto initUserDto() {
+        return new UserDto(
+                1L,
+                "Jack",
+                "Smith",
+                "simpleEmail",
+                "password",
+                123456,
+                LocalDate.now());
     }
 }

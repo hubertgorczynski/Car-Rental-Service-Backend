@@ -47,54 +47,12 @@ public class RentalFacadeTestSuite {
     @Mock
     private EmailToUsersService emailToUsersService;
 
-    User user = new User(
-            1L,
-            "Jack",
-            "Smith",
-            "email",
-            "password",
-            123456);
-
-    Car car = new Car(
-            1L,
-            "sampleVin",
-            "Audi",
-            "A3",
-            2015,
-            "Diesel",
-            3.0,
-            "Saloon",
-            110000,
-            new BigDecimal(18));
-
-    Rental rental = new Rental(
-            LocalDate.of(2020, 10, 10),
-            LocalDate.of(2020, 10, 15),
-            user,
-            car);
-
-    RentalDto rentalDto = new RentalDto(
-            1L,
-            LocalDate.of(2020, 10, 10),
-            LocalDate.of(2020, 10, 15),
-            1L,
-            1L);
-
-    RentalComplexDto rentalComplexDto = new RentalComplexDto(
-            1L,
-            LocalDate.of(2020, 10, 10),
-            LocalDate.of(2020, 10, 15),
-            new BigDecimal(125),
-            "Audi",
-            "A3",
-            "Jack",
-            "Smith",
-            "email",
-            123456);
-
     @Test
     public void getRentalByIdTest() throws RentalNotFoundException {
         //Given
+        Rental rental = initRental();
+        RentalComplexDto rentalComplexDto = initRentalComplexDto();
+
         when(rentalService.getRentalById(1L)).thenReturn(rental);
         when(rentalMapper.mapToRentalComplexDto(rental)).thenReturn(rentalComplexDto);
 
@@ -108,6 +66,8 @@ public class RentalFacadeTestSuite {
     @Test
     public void getRentalsTest() {
         //Given
+        Rental rental = initRental();
+        RentalComplexDto rentalComplexDto = initRentalComplexDto();
         List<Rental> rentalList = Collections.singletonList(rental);
         List<RentalComplexDto> rentalComplexDtoList = Collections.singletonList(rentalComplexDto);
 
@@ -132,6 +92,10 @@ public class RentalFacadeTestSuite {
     @Test
     public void createRentalTest() throws CarNotFoundException, UserNotFoundException {
         //Given
+        Rental rental = initRental();
+        RentalDto rentalDto = initRentalDto();
+        RentalComplexDto rentalComplexDto = initRentalComplexDto();
+
         when(rentalService.createRental(rentalDto)).thenReturn(rental);
         when(rentalMapper.mapToRentalComplexDto(rental)).thenReturn(rentalComplexDto);
         doNothing().when(emailToUsersService).sendEmailAboutRental(rental, "created");
@@ -149,6 +113,10 @@ public class RentalFacadeTestSuite {
     @Test
     public void modifyRentalTest() throws CarNotFoundException, UserNotFoundException, RentalNotFoundException {
         //Given
+        Rental rental = initRental();
+        RentalDto rentalDto = initRentalDto();
+        RentalComplexDto rentalComplexDto = initRentalComplexDto();
+
         when(rentalService.modifyRental(rentalDto)).thenReturn(rental);
         when(rentalMapper.mapToRentalComplexDto(rental)).thenReturn(rentalComplexDto);
         doNothing().when(emailToUsersService).sendEmailAboutRental(rental, "modified");
@@ -166,7 +134,9 @@ public class RentalFacadeTestSuite {
     @Test
     public void extendRentalTest() throws RentalNotFoundException {
         //Given
-        RentalExtensionDto rentalExtensionDto = new RentalExtensionDto(1L, 5L);
+        Rental rental = initRental();
+        RentalExtensionDto rentalExtensionDto = initRentalExtensionDto();
+
         RentalComplexDto extendedRentalComplexDto = new RentalComplexDto(
                 1L,
                 LocalDate.of(2020, 10, 10),
@@ -195,6 +165,8 @@ public class RentalFacadeTestSuite {
     @Test
     public void closeRentalTest() throws RentalNotFoundException {
         //Given
+        Rental rental = initRental();
+
         when(rentalRepository.findById(1L)).thenReturn(Optional.of(rental));
         doNothing().when(emailToUsersService).sendEmailAboutRental(rental, "closed");
 
@@ -205,6 +177,61 @@ public class RentalFacadeTestSuite {
         assertEquals(LocalDate.now(), rental.getRentedTo());
         verify(rentalService, times(1)).closeRental(1L);
         verify(emailToUsersService, times(1)).sendEmailAboutRental(rental, "closed");
+    }
+
+    private Rental initRental() {
+        Car car = new Car(
+                1L,
+                "sampleVin",
+                "Audi",
+                "A3",
+                2015,
+                "Diesel",
+                3.0,
+                "Saloon",
+                250000,
+                new BigDecimal(25));
+
+        User user = new User(
+                1L,
+                "Jack",
+                "Smith",
+                "email",
+                "password",
+                123456);
+
+        return new Rental(
+                LocalDate.of(2020, 8, 20),
+                LocalDate.of(2020, 8, 25),
+                user,
+                car);
+    }
+
+    private RentalDto initRentalDto() {
+        return new RentalDto(
+                1L,
+                LocalDate.of(2020, 10, 10),
+                LocalDate.of(2020, 10, 15),
+                1L,
+                1L);
+    }
+
+    private RentalExtensionDto initRentalExtensionDto() {
+        return new RentalExtensionDto(1L, 5L);
+    }
+
+    private RentalComplexDto initRentalComplexDto() {
+        return new RentalComplexDto(
+                1L,
+                LocalDate.of(2020, 10, 10),
+                LocalDate.of(2020, 10, 15),
+                new BigDecimal(125),
+                "Audi",
+                "A3",
+                "Jack",
+                "Smith",
+                "email",
+                123456);
     }
 }
 
