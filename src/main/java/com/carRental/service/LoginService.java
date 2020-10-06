@@ -1,7 +1,6 @@
 package com.carRental.service;
 
 import com.carRental.domain.Login;
-import com.carRental.domain.dto.LoginDto;
 import com.carRental.exceptions.LoginNotFoundException;
 import com.carRental.repository.LoginRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +18,8 @@ public class LoginService {
         this.loginRepository = loginRepository;
     }
 
-    public boolean isLoginRegistered(LoginDto loginDto) {
-        return loginRepository.existsByEmailAndPassword(loginDto.getEmail(), loginDto.getPassword());
+    public boolean isLoginRegistered(String email, String password) {
+        return loginRepository.existsByEmailAndPassword(email, password);
     }
 
     public Login getLoginByEmailAndPassword(String email, String password) throws LoginNotFoundException {

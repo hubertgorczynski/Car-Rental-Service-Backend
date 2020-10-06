@@ -111,7 +111,7 @@ public class UserServiceTestSuite {
         when(userRepository.existsByEmail("email")).thenReturn(true);
 
         //When
-        boolean result = userRepository.existsByEmail("email");
+        boolean result = userService.isUserAlreadyRegistered("email");
 
         assertTrue(result);
     }
