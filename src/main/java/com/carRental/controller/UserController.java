@@ -2,6 +2,7 @@ package com.carRental.controller;
 
 import com.carRental.domain.dto.UserDto;
 import com.carRental.exceptions.InvalidEmailException;
+import com.carRental.exceptions.LoginNotFoundException;
 import com.carRental.exceptions.UserNotFoundException;
 import com.carRental.facade.UserFacade;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,12 +48,12 @@ public class UserController {
     }
 
     @PutMapping
-    public UserDto modifyUser(@RequestBody UserDto userDto) throws InvalidEmailException {
+    public UserDto modifyUser(@RequestBody UserDto userDto) throws InvalidEmailException, LoginNotFoundException, UserNotFoundException {
         return userFacade.modifyUser(userDto);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteUser(@PathVariable Long id) {
+    public void deleteUser(@PathVariable Long id) throws LoginNotFoundException, UserNotFoundException {
         userFacade.deleteUser(id);
     }
 

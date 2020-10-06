@@ -1,16 +1,20 @@
 package com.carRental.facade;
 
+import com.carRental.domain.Login;
 import com.carRental.domain.User;
 import com.carRental.domain.dto.UserDto;
 import com.carRental.domain.dto.emailVerificationApi.EmailVerificationDto;
 import com.carRental.exceptions.InvalidEmailException;
+import com.carRental.exceptions.LoginNotFoundException;
 import com.carRental.exceptions.UserNotFoundException;
 import com.carRental.mapper.UserMapper;
+import com.carRental.service.LoginService;
 import com.carRental.service.UserService;
 import com.carRental.service.emailService.EmailToUsersService;
 import com.carRental.service.emailService.EmailVerificationService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
@@ -37,6 +41,9 @@ public class UserFacadeTestSuite {
     private UserService userService;
 
     @Mock
+    private LoginService loginService;
+
+    @Mock
     private EmailToUsersService emailToUsersService;
 
     @Mock
@@ -54,6 +61,7 @@ public class UserFacadeTestSuite {
         when(userService.saveUser(user)).thenReturn(user);
         when(userMapper.mapToUserDto(user)).thenReturn(userDto);
         doNothing().when(emailToUsersService).sendEmailAboutCreatingUser(user);
+        doNothing().when(loginService).saveLogin(ArgumentMatchers.any());
 
         //When
         UserDto savedUser = userFacade.saveUser(userDto);
@@ -66,16 +74,19 @@ public class UserFacadeTestSuite {
     }
 
     @Test
-    public void modifyUserTest() throws InvalidEmailException {
+    public void modifyUserTest() throws InvalidEmailException, LoginNotFoundException, UserNotFoundException {
         //Given
         User user = initUser();
         UserDto userDto = initUserDto();
+        Login login = initLogin();
         EmailVerificationDto emailVerificationDto = initEmailVerificationDto();
 
         when(emailVerificationService.verifyEmail(any())).thenReturn(emailVerificationDto);
         when(userMapper.mapToUser(any())).thenReturn(user);
         when(userService.saveUser(user)).thenReturn(user);
         when(userMapper.mapToUserDto(any())).thenReturn(userDto);
+        when(userService.getUserById(anyLong())).thenReturn(user);
+        when(loginService.getLoginByEmailAndPassword(anyString(), anyString())).thenReturn(login);
 
         //When
         UserDto modifiedUser = userFacade.modifyUser(userDto);
@@ -162,8 +173,15 @@ public class UserFacadeTestSuite {
     }
 
     @Test
-    public void deleteUserTest() {
+    public void deleteUserTest() throws LoginNotFoundException, UserNotFoundException {
         //Given
+        User user = initUser();
+        Login login = initLogin();
+
+        when(userService.getUserById(anyLong())).thenReturn(user);
+        when(loginService.getLoginByEmailAndPassword(anyString(), anyString())).thenReturn(login);
+        doNothing().when(loginService).deleteLogin(any());
+
         //When
         userFacade.deleteUser(2L);
 
@@ -218,5 +236,12 @@ public class UserFacadeTestSuite {
 
     private EmailVerificationDto initEmailVerificationDto() {
         return new EmailVerificationDto("true", "true", "true");
+    }
+
+    private Login initLogin() {
+        return new Login(
+                "email",
+                "password"
+        );
     }
 }
