@@ -17,7 +17,7 @@ public class LoginController {
     }
 
     @GetMapping("/is_already_registered")
-    public boolean isLoginRegistered(@RequestParam String email, @RequestParam String password) {
+    public Boolean isLoginRegistered(@RequestParam String email, @RequestParam String password) {
         return loginService.isLoginRegistered(email, password);
     }
 }

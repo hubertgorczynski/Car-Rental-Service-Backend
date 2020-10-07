@@ -57,8 +57,8 @@ public class UserController {
         userFacade.deleteUser(id);
     }
 
-    @GetMapping("/is_user_registered/{userEmail}")
-    public boolean isUserAlreadyRegistered(@PathVariable String userEmail) {
-        return userFacade.isUserAlreadyRegistered(userEmail);
+    @GetMapping("/is_user_registered")
+    public Boolean isUserAlreadyRegistered(@RequestParam String email) {
+        return userFacade.isUserAlreadyRegistered(email);
     }
 }

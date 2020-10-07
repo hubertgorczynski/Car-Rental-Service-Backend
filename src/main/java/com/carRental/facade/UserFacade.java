@@ -88,7 +88,7 @@ public class UserFacade {
                 && emailVerificationDto.getSmtpCheck().equals("true");
     }
 
-    public boolean isUserAlreadyRegistered(String email) {
+    public Boolean isUserAlreadyRegistered(String email) {
         return userService.isUserAlreadyRegistered(email);
     }
 

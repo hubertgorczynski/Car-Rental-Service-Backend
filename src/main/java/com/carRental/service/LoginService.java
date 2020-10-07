@@ -18,7 +18,7 @@ public class LoginService {
         this.loginRepository = loginRepository;
     }
 
-    public boolean isLoginRegistered(String email, String password) {
+    public Boolean isLoginRegistered(String email, String password) {
         return loginRepository.existsByEmailAndPassword(email, password);
     }
 

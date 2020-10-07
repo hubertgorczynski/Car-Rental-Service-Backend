@@ -9,7 +9,7 @@ import java.util.Optional;
 @Repository
 public interface LoginRepository extends CrudRepository<Login, Long> {
 
-    boolean existsByEmailAndPassword(String email, String password);
+    Boolean existsByEmailAndPassword(String email, String password);
 
     Optional<Login> findByEmailAndPassword(String email, String password);
 }

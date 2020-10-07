@@ -109,11 +109,13 @@ public class UserControllerTestSuite {
     @Test
     public void isUserAlreadyRegistered() throws Exception {
         //Given
-        when(userFacade.isUserAlreadyRegistered("email")).thenReturn(true);
+        when(userFacade.isUserAlreadyRegistered("email@gmail")).thenReturn(true);
 
         //When & Then
-        mockMvc.perform(get("/v1/users/is_user_registered/email")
-                .contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/v1/users/is_user_registered")
+                .contentType(MediaType.APPLICATION_JSON)
+                .characterEncoding("UTF-8")
+                .param("email", "email@gmail"))
                 .andExpect(status().is(200));
     }
 

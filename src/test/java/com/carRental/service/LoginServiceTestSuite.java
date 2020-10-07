@@ -30,7 +30,7 @@ public class LoginServiceTestSuite {
         when(loginRepository.existsByEmailAndPassword("email", "password")).thenReturn(true);
 
         //When
-        boolean result = loginService.isLoginRegistered("email", "password");
+        Boolean result = loginService.isLoginRegistered("email", "password");
 
         assertTrue(result);
     }

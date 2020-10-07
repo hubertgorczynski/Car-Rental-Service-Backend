@@ -44,7 +44,7 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    public boolean isUserAlreadyRegistered(String email) {
+    public Boolean isUserAlreadyRegistered(String email) {
         return userRepository.existsByEmail(email);
     }
 }
