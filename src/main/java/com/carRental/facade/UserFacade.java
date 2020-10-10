@@ -54,7 +54,7 @@ public class UserFacade {
         if (isEmailValid(userDto.getEmail())) {
             updateLogin(userDto);
             User user = userMapper.mapToUser(userDto);
-            user.setAccountCreated(userDto.getAccountCreated());
+            user.setAccountCreated(LocalDate.now());
             return userMapper.mapToUserDto(userService.saveUser(user));
         } else {
             throw new InvalidEmailException();
