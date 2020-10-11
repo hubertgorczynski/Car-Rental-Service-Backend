@@ -11,5 +11,5 @@ import lombok.Setter;
 @NoArgsConstructor
 public class RentalExtensionDto {
     private Long rentalId;
-    private Long extension;
+    private Integer extension;
 }

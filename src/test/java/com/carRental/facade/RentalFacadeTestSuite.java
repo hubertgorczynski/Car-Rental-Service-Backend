@@ -244,7 +244,7 @@ public class RentalFacadeTestSuite {
     }
 
     private RentalExtensionDto initRentalExtensionDto() {
-        return new RentalExtensionDto(1L, 5L);
+        return new RentalExtensionDto(1L, 5);
     }
 
     private RentalComplexDto initRentalComplexDto() {

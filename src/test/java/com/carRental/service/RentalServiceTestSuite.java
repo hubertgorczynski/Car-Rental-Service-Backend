@@ -234,7 +234,7 @@ public class RentalServiceTestSuite {
     }
 
     private RentalExtensionDto initRentalExtensionDto() {
-        return new RentalExtensionDto(1L, 5L);
+        return new RentalExtensionDto(1L, 5);
     }
 }
 
