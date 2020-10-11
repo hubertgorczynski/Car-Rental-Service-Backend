@@ -96,6 +96,7 @@ public class RentalControllerTestSuite {
                 LocalDate.of(2020, 10, 10),
                 LocalDate.of(2020, 10, 15),
                 new BigDecimal(125),
+                1L,
                 "Audi",
                 "A3",
                 "Jack",
