@@ -27,7 +27,7 @@ public class HereApiClient {
         return restTemplate.getForObject(url, GeocodeDto.class);
     }
 
-    public CarAgencyDto searchCarRentalAgencies(double latitude, double longitude) {
+    public CarAgencyDto searchCarRentalAgencies(String latitude, String longitude) {
         URI url = getAgenciesSearcherUri(latitude, longitude);
         return restTemplate.getForObject(url, CarAgencyDto.class);
     }
@@ -40,7 +40,7 @@ public class HereApiClient {
                 .build().encode().toUri();
     }
 
-    private URI getAgenciesSearcherUri(double latitude, double longitudes) {
+    private URI getAgenciesSearcherUri(String latitude, String longitudes) {
         String geoCoordinates = latitude + "," + longitudes;
 
         return UriComponentsBuilder.fromHttpUrl(hereApiConfig.getHereApiEndpoint() + "/browse")

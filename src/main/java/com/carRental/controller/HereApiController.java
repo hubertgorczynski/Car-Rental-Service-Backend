@@ -19,7 +19,7 @@ public class HereApiController {
     }
 
     @GetMapping("/search_nearest_agencies_by_coordinates")
-    public CarAgencyDto searchCarRentalAgencies(@RequestParam double latitude, @RequestParam double longitude) {
+    public CarAgencyDto searchCarRentalAgencies(@RequestParam String latitude, @RequestParam String longitude) {
         return hereApiService.searchCarRentalAgencies(latitude, longitude);
     }
 

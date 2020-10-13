@@ -56,10 +56,10 @@ public class HereApiServiceTestSuite {
         List<CarAgencyResultDto> carAgencyResultDtoList = Collections.singletonList(carAgencyResultDto);
         CarAgencyDto carAgencyDto = new CarAgencyDto(carAgencyResultDtoList);
 
-        when(hereApiClient.searchCarRentalAgencies(25.41, 56.26)).thenReturn(carAgencyDto);
+        when(hereApiClient.searchCarRentalAgencies("25.41", "56.26")).thenReturn(carAgencyDto);
 
         //When
-        CarAgencyDto result = hereApiService.searchCarRentalAgencies(25.41, 56.26);
+        CarAgencyDto result = hereApiService.searchCarRentalAgencies("25.41", "56.26");
 
         //Then
         assertEquals("Poznan", result.getAgenciesDtoList().get(0).getAddress().getCity());

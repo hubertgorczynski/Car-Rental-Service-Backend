@@ -60,14 +60,14 @@ public class HereApiControllerTestSuite {
         List<CarAgencyResultDto> carAgencyResultDtoList = Collections.singletonList(carAgencyResultDto);
         CarAgencyDto carAgencyDto = new CarAgencyDto(carAgencyResultDtoList);
 
-        when(hereApiService.searchCarRentalAgencies(52.12, 42.41)).thenReturn(carAgencyDto);
+        when(hereApiService.searchCarRentalAgencies("52.12", "42.41")).thenReturn(carAgencyDto);
 
         //When & Then
         mockMvc.perform(get("/v1/hereApi/search_nearest_agencies_by_coordinates")
                 .contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8")
-                .param("latitude", String.valueOf(52.12))
-                .param("longitude", String.valueOf(42.41)))
+                .param("latitude", "52.12")
+                .param("longitude", "42.41"))
                 .andExpect(status().is(200));
     }
 }

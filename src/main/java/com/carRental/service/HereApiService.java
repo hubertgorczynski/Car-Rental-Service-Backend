@@ -20,7 +20,7 @@ public class HereApiService {
         return hereApiClient.locateGeocode(postalCode);
     }
 
-    public CarAgencyDto searchCarRentalAgencies(double latitude, double longitude) {
+    public CarAgencyDto searchCarRentalAgencies(String latitude, String longitude) {
         return hereApiClient.searchCarRentalAgencies(latitude, longitude);
     }
 }
