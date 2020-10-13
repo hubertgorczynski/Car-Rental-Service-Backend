@@ -18,12 +18,12 @@ public class HereApiController {
         this.hereApiService = hereApiService;
     }
 
-    @GetMapping("search_nearest_agencies_by_coordinates")
+    @GetMapping("/search_nearest_agencies_by_coordinates")
     public CarAgencyDto searchCarRentalAgencies(@RequestParam double latitude, @RequestParam double longitude) {
         return hereApiService.searchCarRentalAgencies(latitude, longitude);
     }
 
-    @GetMapping("check_coordinates_by_postal_code/{postalCode}")
+    @GetMapping("/check_coordinates_by_postal_code/{postalCode}")
     public GeocodeDto getCoordinates(@PathVariable String postalCode) {
         return hereApiService.locateGeocode(postalCode);
     }
