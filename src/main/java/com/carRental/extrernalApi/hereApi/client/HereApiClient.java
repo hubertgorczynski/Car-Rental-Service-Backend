@@ -47,7 +47,7 @@ public class HereApiClient {
                 .queryParam("apiKey", hereApiConfig.getHereApiKey())
                 .queryParam("at", geoCoordinates)
                 .queryParam("categories", "700-7851-0117")
-                .queryParam("limit", 5)
+                .queryParam("limit", 15)
                 .build().encode().toUri();
     }
 }
