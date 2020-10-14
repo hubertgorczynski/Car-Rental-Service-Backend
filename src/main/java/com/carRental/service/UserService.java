@@ -47,4 +47,9 @@ public class UserService {
     public Boolean isUserAlreadyRegistered(String email) {
         return userRepository.existsByEmail(email);
     }
+
+    public Boolean doesUserHaveNoRents(Long id) throws UserNotFoundException {
+        User user = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
+        return user.getRentals().isEmpty();
+    }
 }

@@ -61,4 +61,9 @@ public class UserController {
     public Boolean isUserAlreadyRegistered(@RequestParam String email) {
         return userFacade.isUserAlreadyRegistered(email);
     }
+
+    @GetMapping("/hasNoRents/{id}")
+    public Boolean doesUserHaveNoRents(@PathVariable Long id) throws UserNotFoundException {
+        return userFacade.doesUserHaveNoRents(id);
+    }
 }

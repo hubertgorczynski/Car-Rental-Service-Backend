@@ -92,6 +92,10 @@ public class UserFacade {
         return userService.isUserAlreadyRegistered(email);
     }
 
+    public Boolean doesUserHaveNoRents(Long id) throws UserNotFoundException {
+        return userService.doesUserHaveNoRents(id);
+    }
+
     public void saveLogin(UserDto userDto) {
         loginService.saveLogin(new Login(
                 userDto.getEmail(),
