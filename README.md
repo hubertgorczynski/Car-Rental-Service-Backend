@@ -2,6 +2,12 @@
 
 Kodilla course - final project. WEB application of car rental service.
 
+- To acquire frontend go to:
+https://github.com/hubertgorczynski/final-project-frontend
+
+- Application deployed also on Heroku under link below:
+https://salty-mountain-66251.herokuapp.com/
+
 ### Technologies
 - Spring Boot 
 - Hibernate
@@ -33,12 +39,5 @@ Kodilla course - final project. WEB application of car rental service.
 
 ### Extra feature
 You can log in as Administrator by using below login and pass. In admin mode You can see all users and theirs rentals.
-Login: admin
-Password: admin
-
-To acquire frontend go to:
-https://github.com/hubertgorczynski/final-project-frontend
-
-Application deployed also on Heroku under link below:
-https://salty-mountain-66251.herokuapp.com/
-
+- Login: admin
+- Password: admin
