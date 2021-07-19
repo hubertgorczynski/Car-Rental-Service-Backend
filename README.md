@@ -37,7 +37,4 @@ https://salty-mountain-66251.herokuapp.com/
 5. In page called "Agency searcher" You can find the nearest car agencies in Your area. You just have to enter Your zip code.
 6. In page called "Vin decoder" You can check any car (not only from our database) information by entering its unique VIN number.
 
-### Extra feature
-You can log in as Administrator by using below login and pass. In admin mode You can see all users and theirs rentals.
-- Login: admin
-- Password: admin
+
